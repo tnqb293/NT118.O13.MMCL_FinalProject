@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "19226304340",
+    "firebase_url": "https://weather-app-c94bf-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "weather-app-c94bf",
+    "storage_bucket": "weather-app-c94bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19226304340:android:067684f2a9c570972472c1",
+        "android_client_info": {
+          "package_name": "com.uit.weatherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19226304340-k1s084jlbfemqb918hu79v0j9eqpj5nk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uit.weatherapp",
+            "certificate_hash": "d8844ca68a2b701ccf734a946aa741c9a0da2477"
+          }
+        },
+        {
+          "client_id": "19226304340-c8h9c1rh4pr2q2h741q614p3ikjd2gk3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAimWCi33vE2riRe7v9jcqWGHPimcQOHjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19226304340-c8h9c1rh4pr2q2h741q614p3ikjd2gk3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
