@@ -16,6 +16,11 @@
     <string name="Sign_up_google">Sign Up With Google</string>
     <string name="Sign_up_email">Sign Up With Email</string>
     <string name="now_you">Now you are ready to log in. By signing in you are agreeing our Term and privacy policy.</string>
+    <string name="old_password">Enter the old password</string>
+    <string name="new_password">Enter the new password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="you_can_change_password">You can change your password now.</string>
+    <string name="changepassword">CHANGE PASSWORD</string>
     <string name="login">LOGIN</string>
     <string name="Dashboard">Dashboard</string>
     <string name="Chart">Chart</string>

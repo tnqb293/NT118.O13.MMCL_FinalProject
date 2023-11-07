@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "19226304340-fcevo5bja8s0f6l639huqd4p30vk60lq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uit.weatherapp",
+            "certificate_hash": "a42ed24f3e426d902f6ea84b2751ea86f3522997"
+          }
+        },
+        {
           "client_id": "19226304340-k1s084jlbfemqb918hu79v0j9eqpj5nk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
