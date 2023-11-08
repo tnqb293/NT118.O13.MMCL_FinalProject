@@ -18,7 +18,7 @@
     <string name="now_you">Now you are ready to log in. By signing in you are agreeing our Term and privacy policy.</string>
     <string name="old_password">Enter the old password</string>
     <string name="new_password">Enter the new password</string>
-    <string name="confirm_password">Confirm password</string>
+    <string name="confirmư_password">Confirm password</string>
     <string name="you_can_change_password">You can change your password now.</string>
     <string name="changepassword">CHANGE PASSWORD</string>
     <string name="login">LOGIN</string>
@@ -47,4 +47,19 @@
     <string name="percent"> %</string>
     <string name="mm"> mm</string>
     <string name="km_h"> km/h</string>
+    <string name="setting">Setting</string>
+    <string name="name_banner">TRAN NGUYEN QUOC BAO</string>
+    <string name="email_banner">21521865@gm.uit.edu.vn</string>
+    <string name="information">Personal Information</string>
+    <string name="full_name">Full name</string>
+    <string name="edit_full_name">TRAN NGUYEN QUOC BAO</string>
+    <string name="email_address">Email address</string>
+    <string name="edit_email_address">21521865@gm.uit.edu.vn</string>
+    <string name="user_name">Username</string>
+    <string name="edit_user_name">tnqb293</string>
+    <string name="pass_word">Password</string>
+    <string name="edit_pass_word">*******************</string>
+    <string name="language">Language</string>
+    <string name="edit_language">English</string>
+    <string name="logout">LOGOUT</string>
 </resources>
