@@ -1,21 +1,36 @@
 package com.uit.weatherapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.uit.weatherapp.model.LocaleHelper;
+
 public class AccountSettingFragment extends Fragment {
     HomeActivity homeActivity;
+    ImageView btnChange_Language;
+    Context context;
+    Resources resources;
+    TextView tvSetting;
     Button btLogout;
-    public AccountSettingFragment() {}
-    public AccountSettingFragment(HomeActivity activity)
-    {
+
+    public AccountSettingFragment() {
+    }
+
+    public AccountSettingFragment(HomeActivity activity) {
         this.homeActivity = activity;
     }
 
@@ -41,10 +56,50 @@ public class AccountSettingFragment extends Fragment {
 
     public void InitViews(View v) {
         btLogout = v.findViewById(R.id.bt_logout);
+        btnChange_Language = v.findViewById(R.id.bt_edit_language);
+
     }
+
     public void InitEvent() {
         btLogout.setOnClickListener(v -> {
-
+            startActivity(new Intent(homeActivity, MainActivity.class));
+        });
+        btnChange_Language.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLanguageDialog();
+            }
         });
     }
+    private void showLanguageDialog() {
+        final String[] languages = {"Tiếng Việt", "English"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(homeActivity);
+        builder.setTitle("Chọn ngôn ngữ")
+                .setItems(languages, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String selectedLanguage = "vi"; // Mặc định là tiếng Việt
+
+                        if (which == 1) {
+                            selectedLanguage = "en"; // Nếu chọn English
+                        }
+
+                        // Thiết lập ngôn ngữ và làm mới activity
+                        LocaleHelper.setLocale(homeActivity, selectedLanguage);
+                        homeActivity.recreate();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+
+
 }
+
+
+
+
+
