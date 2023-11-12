@@ -26,11 +26,11 @@
     <string name="Chart">Biểu đồ</string>
     <string name="Account">Tài khoản</string>
     <string name="username_default">Chào, Flinta</string>
-    <string name="weather_default">Trời nắng đẹp</string>
+    <string name="weather_default">Trời nắng</string>
     <string name="temperature_default">30 °C</string>
     <string name="rain_fail_value_default">10 mm</string>
-    <string name="day_of_week_default">Thứ bảy</string>
-    <string name="month_year_default">ngày 5 tháng 11 năm 2023</string>
+    <string name="day_of_week_default">Chủ nhật</string>
+    <string name="month_year_default">06/11/2023</string>
     <string name="location_title">Vị trí</string>
     <string name="location_user_default">Thủ Đức, Thành phố Hồ Chí Minh</string>
     <string name="weather_title">Thời tiết</string>
@@ -60,6 +60,9 @@
     <string name="pass_word">Mật khẩu</string>
     <string name="edit_pass_word">*******************</string>
     <string name="language">Ngôn ngữ</string>
-    <string name="edit_language">Tiếng Anh</string>
+    <string name="edit_language">Tiếng Việt</string>
     <string name="logout">ĐĂNG XUẤT</string>
+    <string name="choose_a_language">Thay đổi ngôn ngữ</string>
+    <string name="english">Tiếng Anh</string>
+    <string name="vietnamese">Tiếng Việt</string>
 </resources>

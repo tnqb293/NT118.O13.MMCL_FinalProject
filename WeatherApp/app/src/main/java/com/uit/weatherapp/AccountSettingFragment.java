@@ -1,17 +1,14 @@
 package com.uit.weatherapp;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,9 +19,7 @@ import com.uit.weatherapp.model.LocaleHelper;
 public class AccountSettingFragment extends Fragment {
     HomeActivity homeActivity;
     ImageView btnChange_Language;
-    Context context;
-    Resources resources;
-    TextView tvSetting;
+
     Button btLogout;
 
     public AccountSettingFragment() {
@@ -72,10 +67,10 @@ public class AccountSettingFragment extends Fragment {
         });
     }
     private void showLanguageDialog() {
-        final String[] languages = {"Tiếng Việt", "English"};
+        final String[] languages = {getString(R.string.vietnamese), getString(R.string.english)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(homeActivity);
-        builder.setTitle("Chọn ngôn ngữ")
+        builder.setTitle(R.string.choose_a_language)
                 .setItems(languages, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String selectedLanguage = "vi"; // Mặc định là tiếng Việt
@@ -93,10 +88,6 @@ public class AccountSettingFragment extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-
-
-
 }
 
 

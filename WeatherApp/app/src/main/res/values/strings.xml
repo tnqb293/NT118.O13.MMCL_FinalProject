@@ -30,7 +30,7 @@
     <string name="temperature_default">30 °C</string>
     <string name="rain_fail_value_default">10 mm</string>
     <string name="day_of_week_default">Saturday</string>
-    <string name="month_year_default">5 Nov 2023</string>
+    <string name="month_year_default">6 Nov 2023</string>
     <string name="location_title">Location</string>
     <string name="location_user_default">Thu Duc, Ho Chi Minh City</string>
     <string name="weather_title">Weather</string>
@@ -62,4 +62,7 @@
     <string name="language">Language</string>
     <string name="edit_language">English</string>
     <string name="logout">LOGOUT</string>
+    <string name="choose_a_language">Choose a language</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Vietnamese</string>
 </resources>
