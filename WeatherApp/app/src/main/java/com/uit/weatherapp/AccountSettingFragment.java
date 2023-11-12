@@ -73,13 +73,11 @@ public class AccountSettingFragment extends Fragment {
         builder.setTitle(R.string.choose_a_language)
                 .setItems(languages, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String selectedLanguage = "vi"; // Mặc định là tiếng Việt
+                        String selectedLanguage = "vi";
 
                         if (which == 1) {
-                            selectedLanguage = "en"; // Nếu chọn English
+                            selectedLanguage = "en";
                         }
-
-                        // Thiết lập ngôn ngữ và làm mới activity
                         LocaleHelper.setLocale(homeActivity, selectedLanguage);
                         homeActivity.recreate();
                     }
