@@ -35,12 +35,8 @@ import com.uit.weatherapp.API.APIManager;
 import com.uit.weatherapp.Interface.TokenCallback;
 
 public class SignInFragment extends Fragment {
-    FirebaseAuth mAuth;
-    static final int RC_SIGN_IN = 1;
-    static final String TAG = "GOOGLEAUTH";
-    GoogleSignInClient mGoogleSignInClient;
     Button btnLogin, btnSignInGoogle, btnSignUpEmail;
-    TextView tvSignIn, tvNowYou, tvOr;
+    TextView tvSignIn, tvNowYou, tvOr, tvResetPassword;
     View vHorizontalLineLeft, vHorizontalLineRight;
     EditText etEmail, etPassword;
     MainActivity loginActivity;
@@ -83,10 +79,12 @@ public class SignInFragment extends Fragment {
         etPassword = v.findViewById(R.id.et_password);
         vHorizontalLineLeft = v.findViewById(R.id.v_horizontal_left);
         vHorizontalLineRight = v.findViewById(R.id.v_horizontal_right);
+        tvResetPassword = v.findViewById(R.id.tv_ResetPassword);
     }
     private void InitEvent()
     {
         btnSignUpEmail.setOnClickListener(view -> loginActivity.replaceFragment(loginActivity.sign_up));
+        tvResetPassword.setOnClickListener(v -> loginActivity.replaceFragment(loginActivity.reset_password_find_username));
         btnLogin.setOnClickListener(v -> {
             String email = String.valueOf(etEmail.getText());
             String password = String.valueOf(etPassword.getText());

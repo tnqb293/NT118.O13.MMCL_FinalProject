@@ -35,4 +35,7 @@ public interface APIInterface {
     @Headers("Content-Type: application/json")
     @PUT("api/master/user/master/reset-password/{userId}")
     Call<String> updatePassword(@Path("userId") String userId, @Body JsonObject body);
+    @Headers("Content-Type: application/json")
+    @POST("api/master/user/query")
+    Call<JsonArray> listUser(@Body JsonObject body);
 }

@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.uit.weatherapp.GlobalVars;
 import com.uit.weatherapp.Interface.APIInterface;
 import com.uit.weatherapp.Interface.DataLoadedCallback;
+import com.uit.weatherapp.Interface.ListUserCallback;
 import com.uit.weatherapp.Interface.TokenCallback;
 import com.uit.weatherapp.Interface.UidCallback;
 import com.uit.weatherapp.model.Device;
@@ -16,6 +17,7 @@ import com.uit.weatherapp.model.TokenAccess;
 import com.uit.weatherapp.model.WeatherData;
 
 import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +35,24 @@ public class APIManager {
     private static final APIInterface putUserRoles = apiClient.getClient().create(APIInterface.class);
     private static final APIInterface putRealmRoles =  apiClient.getClient().create(APIInterface.class);
     private static final APIInterface putResetPassword =  apiClient.getClient().create(APIInterface.class);
+    private static final APIInterface listUser = apiClient.getClient().create(APIInterface.class);
+    public static void listUserFn(JsonObject request, ListUserCallback callback)
+    {
+        Call<JsonArray> call = listUser.listUser(request);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                JsonArray data = response.body();
+                callback.onSuccess(data);
+                Log.d("Retrofit", "Call List User Success " + data);
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+
+            }
+        });
+    }
     public static void resetPassword(JsonObject request, String userId)
     {
         Call<String> call = putResetPassword.updatePassword(userId, request);

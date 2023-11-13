@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
-    public Fragment sign_up, sign_in, account_setting;
+    public Fragment sign_up, sign_in, reset_password, reset_password_find_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     {
         sign_up = new SignUpFragment(this);
         sign_in = new SignInFragment(this);
+        reset_password_find_username = new ResetPasswordFindUsernameFragment(this);
     }
     public void replaceFragment(Fragment fragment)
     {
@@ -31,9 +32,13 @@ public class MainActivity extends AppCompatActivity {
         {
             ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
         }
-        else
+        else if(fragment == sign_in)
         {
             ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+        else if (fragment == reset_password_find_username)
+        {
+            ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
         }
         ft.replace(R.id.fl_login, fragment);
         ft.commit();
