@@ -20,8 +20,6 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 public class HomeActivity extends AppCompatActivity {
     public Fragment dashboard, accountSetting, chart, fragment;
     public AnimatedBottomBar navBar;
-    int selectedIndex;
-    private FragmentManager fm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -45,7 +43,6 @@ public class HomeActivity extends AppCompatActivity {
     }
     private void InitVars()
     {
-
         dashboard = new DashboardFragment(this);
         chart = new ChartFragment(this);
         accountSetting = new AccountSettingFragment(this);
@@ -86,7 +83,10 @@ public class HomeActivity extends AppCompatActivity {
                 else if (lastIndex == 1 && newIndex == 2)
                     replaceFragmentRightToLeft(accountSetting);
                 else if(lastIndex == 2 && newIndex == 1)
+                {
                     replaceFragmentLeftToRight(chart);
+                    Log.d("Retrofit: ", GlobalVars.username + " / " + GlobalVars.password);
+                }
             }
 
             @Override

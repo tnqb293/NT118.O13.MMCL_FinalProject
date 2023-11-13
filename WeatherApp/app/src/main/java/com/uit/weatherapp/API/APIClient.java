@@ -10,26 +10,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
     public static String UserToken = "";
-    public static String rainfall ="";
-    public static String temperature = "";
-    public static String humidity = "";
-    public static String windSpeed = "";
-    public static OkHttpClient getUnsafeOkHttpClient() {
+
+    public OkHttpClient getUnsafeOkHttpClient() {
         try {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-            //Log
+            // Log
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(interceptor);
 
-            //Bear token
+            // Bear token and Content-Length
             builder.addInterceptor(chain -> {
-                Request newRequest = chain.request()
-                        .newBuilder()
+                Request originalRequest = chain.request();
+                Request.Builder requestBuilder = originalRequest.newBuilder()
                         .addHeader("Authorization", "Bearer " + UserToken)
-                        .build();
+                        .addHeader("Content-Type", "application/json")
+                        .addHeader("Accept", "application/json, text/plain, */*");
 
+                // Check if the request has a body, and if so, calculate and set the content length
+                if (originalRequest.body() != null) {
+                    long contentLength = originalRequest.body().contentLength();
+                    requestBuilder.addHeader("Content-Length", String.valueOf(contentLength));
+                }
+
+                Request newRequest = requestBuilder.build();
                 return chain.proceed(newRequest);
             });
 
@@ -38,6 +43,7 @@ public class APIClient {
             throw new RuntimeException(e);
         }
     }
+
     public Retrofit getClient() {
         OkHttpClient client = getUnsafeOkHttpClient();
         return new Retrofit.Builder()
@@ -46,11 +52,13 @@ public class APIClient {
                 .client(client)
                 .build();
     }
+
     public Retrofit getTokenAccess() {
         OkHttpClient client = getUnsafeOkHttpClient();
         return new Retrofit.Builder()
                 .baseUrl(GlobalVars.baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
     }
 }

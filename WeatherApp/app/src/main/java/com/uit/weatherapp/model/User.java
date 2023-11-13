@@ -1,19 +1,20 @@
 package com.uit.weatherapp.model;
 
-import com.google.firebase.database.IgnoreExtraProperties;
 
-@IgnoreExtraProperties
 public class User {
-    public String username;
-    public String email;
-    public String userId;
+    public String username = "";
+    public String email = "";
+    public String password = "";
+
     public User() {
 
     }
-    public User(String username, String email, String userId)
+    public User(String username, String email, String password)
     {
         this.username = username;
         this.email = email;
-        this.userId = userId;
+        this.password = password;
     }
+
+
 }

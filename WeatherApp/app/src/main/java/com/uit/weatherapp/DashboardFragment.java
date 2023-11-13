@@ -60,7 +60,6 @@ public class DashboardFragment extends Fragment implements DataLoadedCallback {
         String formattedDateOfWeek = days.format(calendar.getTime());
         tvMonthYear.setText(formattedDate);
         tvDayofWeek.setText(formattedDateOfWeek);
-
     }
 
     public DashboardFragment(HomeActivity activity)

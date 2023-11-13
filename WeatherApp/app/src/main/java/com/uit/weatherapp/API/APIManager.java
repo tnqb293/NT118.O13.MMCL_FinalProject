@@ -2,11 +2,16 @@ package com.uit.weatherapp.API;
 
 import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uit.weatherapp.GlobalVars;
 import com.uit.weatherapp.Interface.APIInterface;
 import com.uit.weatherapp.Interface.DataLoadedCallback;
+import com.uit.weatherapp.Interface.TokenCallback;
+import com.uit.weatherapp.Interface.UidCallback;
 import com.uit.weatherapp.model.Device;
+import com.uit.weatherapp.model.RequestPostRealmUser;
+import com.uit.weatherapp.model.ResponsePostRealmUser;
 import com.uit.weatherapp.model.TokenAccess;
 import com.uit.weatherapp.model.WeatherData;
 
@@ -20,11 +25,129 @@ public class APIManager {
     public APIManager()  {
 
     }
-//    public static String rainfall = "default";
+
     private static final APIClient apiClient = new APIClient();
     private static final APIInterface token_access =apiClient.getTokenAccess().create(APIInterface.class);
     private static final APIInterface data = apiClient.getClient().create(APIInterface.class);
+    private static final APIInterface postRealmUser = apiClient.getClient().create(APIInterface.class);
+    private static final APIInterface putUserRoles = apiClient.getClient().create(APIInterface.class);
+    private static final APIInterface putRealmRoles =  apiClient.getClient().create(APIInterface.class);
+    private static final APIInterface putResetPassword =  apiClient.getClient().create(APIInterface.class);
+    public static void resetPassword(JsonObject request, String userId)
+    {
+        Call<String> call = putResetPassword.updatePassword(userId, request);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful())
+                {
+                    Log.d("Retrofit", "Update Password Success");
+                }
+                else {
+                    int errorCode = response.code();
+                    Log.e("Retrofit", "Error response Update Password User. Error Code: " + errorCode);
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("Retrofit", "Error Body: " + errorBody);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+    public static void setRealmRoles(JsonArray request, String userId)
+    {
+        Call<String> call = putRealmRoles.setRealmRoles(userId, request);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful())
+                {
+                    Log.d("Retrofit", "Set Realm Roles Success");
+                }
+                else {
+                    int errorCode = response.code();
+                    Log.e("Retrofit", "Error response Put Roles User. Error Code: " + errorCode);
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("Retrofit", "Error Body: " + errorBody);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+            }
+        });
+    }
+    public static void setRoles(JsonArray request, String userId) {
+        Call<String> call = putUserRoles.setRoles(userId, request);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Retrofit", "Put user Roles Success");
+                    Log.d("Retrofit", "User ID: " + userId);
+                } else {
+                    int errorCode = response.code();
+                    Log.e("Retrofit", "Error response Put Roles User. Error Code: " + errorCode);
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("Retrofit", "Error Body: " + errorBody);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+            }
+        });
+    }
+
+    public static void createIdUser(RequestPostRealmUser request, UidCallback callback)
+    {
+        Call<ResponsePostRealmUser> call = postRealmUser.postRealmUserInterface(request);
+        call.enqueue(new Callback<ResponsePostRealmUser>() {
+            @Override
+            public void onResponse(Call<ResponsePostRealmUser> call, Response<ResponsePostRealmUser> response) {
+                if(response.isSuccessful())
+                {
+                    ResponsePostRealmUser responsePostRealmUser = response.body();
+                    String uid = responsePostRealmUser.id;
+                    callback.onSuccess(uid);
+                    Log.d("Retrofit", "Response: " + uid);
+                }
+                else {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("Retrofit", "Error response Create User: " + errorBody);
+                        callback.onFailure("Error response: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponsePostRealmUser> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+            }
+        });
+    }
     public static void getData(final DataLoadedCallback callback)
     {
         Call<Device> call = data.getData();
@@ -47,7 +170,7 @@ public class APIManager {
                     String windSpeed = jObj.get("value").toString();
                     WeatherData weatherData = new WeatherData(humidity, temperature, rainfall, windSpeed);
                     callback.onDataLoaded(weatherData);
-                    Log.d("Retrofit", "Value is: " + APIClient.rainfall + " - "  + APIClient.windSpeed + " - " + APIClient.temperature + " - " + APIClient.humidity);
+//                    Log.d("Retrofit", "Value is: " + APIClient.rainfall + " - "  + APIClient.windSpeed + " - " + APIClient.temperature + " - " + APIClient.humidity);
                 }
                 else {
                     try {
@@ -68,9 +191,9 @@ public class APIManager {
             }
         });
     }
-    public static void getToken()
+    public static void getToken(String username, String password, TokenCallback callback)
     {
-        Call<TokenAccess> call = token_access.getTokenAccess(GlobalVars.clientId, GlobalVars.username, GlobalVars.password,GlobalVars.grant_type);
+        Call<TokenAccess> call = token_access.getTokenAccess(GlobalVars.clientId, username, password, GlobalVars.grant_type);
         call.enqueue(new Callback<TokenAccess>() {
             @Override
             public void onResponse(Call<TokenAccess> call, Response<TokenAccess> response) {
@@ -80,11 +203,14 @@ public class APIManager {
 //                    Log.d("Retrofit", "Token is: " + data.access_token);
                     APIClient.UserToken = data.access_token;
                     Log.d("Retrofit", "Token is: " + APIClient.UserToken);
+                    callback.onSuccess(APIClient.UserToken);
                 }
                 else {
                     try {
                         String errorBody = response.errorBody().string();
+                        APIClient.UserToken = "";
                         Log.e("Retrofit", "Error response: " + errorBody);
+                        callback.onFailure("Error response: " + errorBody);
                     }
                     catch (IOException e)
                     {
@@ -96,7 +222,7 @@ public class APIManager {
             @Override
             public void onFailure(Call<TokenAccess> call, Throwable t) {
                 Log.e("Retrofit", "Network error: " + t.getMessage());
-
+                callback.onFailure("Network error: " + t.getMessage());
             }
         });
     }
