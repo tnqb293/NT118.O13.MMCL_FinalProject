@@ -3,7 +3,6 @@ package com.uit.weatherapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,21 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthCredential;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.ktx.Firebase;
-import com.uit.weatherapp.API.APIClient;
 import com.uit.weatherapp.API.APIManager;
 import com.uit.weatherapp.Interface.TokenCallback;
 
@@ -94,9 +80,9 @@ public class SignInFragment extends Fragment {
                 etEmail.setText("");
                 etPassword.setText("");
             }
-            else if(password.length() <= 7)
+            else if(password.length() <= 4)
             {
-                Toast.makeText(loginActivity, "Password must have 8 characters or more", Toast.LENGTH_SHORT).show();
+                Toast.makeText(loginActivity, "Password must have 4 characters or more", Toast.LENGTH_SHORT).show();
                 etPassword.setText("");
             }
             else
@@ -107,12 +93,17 @@ public class SignInFragment extends Fragment {
                     public void onSuccess(String token) {
                         GlobalVars.username = email;
                         GlobalVars.password = password;
+                        loginActivity.runOnUiThread(() -> {
+                            Toast.makeText(loginActivity, "Login Successful", Toast.LENGTH_SHORT).show();
+                        });
                         startActivity(new Intent(loginActivity, HomeActivity.class));
                     }
 
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(loginActivity, "Tên tài khoản hoặc mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                        loginActivity.runOnUiThread(() -> {
+                            Toast.makeText(loginActivity, "Login Failed. Incorrect username or password", Toast.LENGTH_SHORT).show();
+                        });
                     }
                 });
 

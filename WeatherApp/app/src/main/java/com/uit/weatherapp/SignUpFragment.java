@@ -79,9 +79,10 @@ public class SignUpFragment extends Fragment {
             String username = String.valueOf(etUsername.getText());
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(username))
             {
-                Toast.makeText(mainActivity, "Email or Password or Email is Empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainActivity, "Email or Password is Empty", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             else
             {
                 APIManager.getToken(GlobalVars.usernameAdmin, GlobalVars.passwordAdmin, new TokenCallback() {
@@ -101,11 +102,17 @@ public class SignUpFragment extends Fragment {
                                 APIManager.setRealmRoles(bodyRealmRoles, uid);
                                 APIManager.resetPassword(bodyUpdatePassword, uid);
                                 Log.d("Retrofit", "Đăng ký thành công");
+                                mainActivity.runOnUiThread(() -> {
+                                    Toast.makeText(mainActivity, R.string.signup_success, Toast.LENGTH_SHORT).show();
+                                });
                             }
 
                             @Override
                             public void onFailure(String errorMessage) {
                                 Log.e("Retrofit", errorMessage);
+                                mainActivity.runOnUiThread(() -> {
+                                    Toast.makeText(mainActivity, R.string.signup_fail, Toast.LENGTH_SHORT).show();
+                                });
                             }
                         });
                     }

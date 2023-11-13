@@ -379,13 +379,13 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_below="@id/RLweather"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_width="380dp"
-        android:layout_height="120dp"
+        android:layout_height="70dp"
         android:background="@drawable/taskbar_black">
         <RelativeLayout
-            android:layout_width="137dp"
-            android:layout_height="100dp"
+            android:layout_width="135dp"
+            android:layout_height="50dp"
             android:background="@drawable/bg_taskbar">
             <TextView
                 android:id="@+id/TVdashboard"

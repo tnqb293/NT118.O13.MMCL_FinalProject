@@ -70,4 +70,8 @@
     <string name="confirm">Confirm</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="reset">Reset</string>
+    <string name="signup_success">Registration Successful</string>
+    <string name="signup_fail">Registration Failed</string>
+    <string name="signin_success">Login Successful</string>
+    <string name="signin_fail">Login Failed. Incorrect username or password</string>
 </resources>
