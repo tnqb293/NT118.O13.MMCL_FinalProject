@@ -25,7 +25,7 @@
     <string name="Dashboard">Trang chủ</string>
     <string name="Chart">Biểu đồ</string>
     <string name="Account">Tài khoản</string>
-    <string name="username_default">Chào, Flinta</string>
+    <string name="username_default">Chào,</string>
     <string name="weather_default">Trời nắng</string>
     <string name="temperature_default">30 °C</string>
     <string name="rain_fail_value_default">10 mm</string>
@@ -65,4 +65,9 @@
     <string name="choose_a_language">Thay đổi ngôn ngữ</string>
     <string name="english">Tiếng Anh</string>
     <string name="vietnamese">Tiếng Việt</string>
+    <string name="reset_password"><u>Thiết lập lại mật khẩu?</u></string>
+    <string name="title_username_resetpassword">Vui lòng điền tên người dùng của bạn để thiết lập lại mật khẩu</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="confirm_new_password">Xác nhận mật khẩu mới</string>
+    <string name="reset">Tạo lại mật khẩu</string>
 </resources>

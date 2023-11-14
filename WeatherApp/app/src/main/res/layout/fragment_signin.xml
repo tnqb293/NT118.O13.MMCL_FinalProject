@@ -97,7 +97,6 @@
         android:text="@string/or"
         android:textColor="@color/input_text"
         android:textSize="17sp"
-
         />
     <View
         android:id="@+id/v_horizontal_right"
@@ -143,5 +142,16 @@
         android:paddingEnd="24dp"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ResetPassword"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_signup_email"
+        android:layout_marginTop="50dp"
+        android:text="@string/reset_password"
+        android:textSize="20sp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

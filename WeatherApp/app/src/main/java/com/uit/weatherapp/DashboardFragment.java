@@ -1,5 +1,6 @@
 package com.uit.weatherapp;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.uit.weatherapp.API.APIClient;
 import com.uit.weatherapp.API.APIManager;
 import com.uit.weatherapp.Interface.DataLoadedCallback;
+import com.uit.weatherapp.Interface.TokenCallback;
 import com.uit.weatherapp.model.WeatherData;
 
 import java.text.SimpleDateFormat;
@@ -71,7 +73,20 @@ public class DashboardFragment extends Fragment implements DataLoadedCallback {
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        APIManager.getData(this);
+        APIManager.getToken(GlobalVars.username, GlobalVars.password, new TokenCallback() {
+            @Override
+            public void onSuccess(String token) {
+                APIManager.getData(DashboardFragment.this);
+                String welcomeUser = String.join(" ", getResources().getString(R.string.username_default), GlobalVars.username);
+                tvHelloUser.setText(welcomeUser);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+
+            }
+        });
+//        APIManager.getData(this);
         super.onCreate(savedInstanceState);
     }
 

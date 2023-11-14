@@ -25,7 +25,7 @@
     <string name="Dashboard">Dashboard</string>
     <string name="Chart">Chart</string>
     <string name="Account">Account</string>
-    <string name="username_default">Hi, Flinta</string>
+    <string name="username_default">Hi,</string>
     <string name="weather_default">Sunny</string>
     <string name="temperature_default">30 °C</string>
     <string name="rain_fail_value_default">10 mm</string>
@@ -65,4 +65,9 @@
     <string name="choose_a_language">Choose a language</string>
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
+    <string name="reset_password"><u>Reset your password?</u></string>
+    <string name="title_username_resetpassword">Please fill in your username to reset password</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="reset">Reset</string>
 </resources>
