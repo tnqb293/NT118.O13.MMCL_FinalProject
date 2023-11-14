@@ -113,7 +113,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_policy"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:paddingRight="8dp"
         android:paddingLeft="8dp"
         android:paddingTop="16dp"
@@ -174,8 +174,8 @@
         />
     <Button
         android:id="@+id/bt_return"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_signup_google"
@@ -183,6 +183,6 @@
         android:background="@drawable/bg_button_login"
         android:drawableStart="@drawable/ic_back"
         android:layout_marginTop="5dp"
-        android:padding="15dp"
+        android:padding="4dp"
          />
 </androidx.constraintlayout.widget.ConstraintLayout>

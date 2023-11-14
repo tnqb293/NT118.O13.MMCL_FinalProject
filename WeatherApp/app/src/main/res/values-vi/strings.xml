@@ -70,4 +70,8 @@
     <string name="confirm">Xác nhận</string>
     <string name="confirm_new_password">Xác nhận mật khẩu mới</string>
     <string name="reset">Tạo lại mật khẩu</string>
+    <string name="signup_success">Đăng ký thành công</string>
+    <string name="signup_fail">Đăng ký thất bại</string>
+    <string name="signin_success">Đăng nhập thành công</string>
+    <string name="signin_fail">Đăng nhập thất bại. Tên đăng nhập hoặc mật khẩu không chính xác</string>
 </resources>

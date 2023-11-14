@@ -1,8 +1,6 @@
 package com.uit.weatherapp;
 
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.uit.weatherapp.API.APIClient;
 import com.uit.weatherapp.API.APIManager;
 import com.uit.weatherapp.Interface.DataLoadedCallback;
 import com.uit.weatherapp.Interface.TokenCallback;
@@ -53,8 +50,8 @@ public class DashboardFragment extends Fragment implements DataLoadedCallback {
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.forLanguageTag("en"));
-        SimpleDateFormat days = new SimpleDateFormat("EEEE", Locale.forLanguageTag("en"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yyyy", Locale.forLanguageTag(GlobalVars.day));
+        SimpleDateFormat days = new SimpleDateFormat("EEEE", Locale.forLanguageTag(GlobalVars.day));
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);

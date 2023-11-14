@@ -74,10 +74,12 @@ public class AccountSettingFragment extends Fragment {
                 .setItems(languages, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String selectedLanguage = "vi";
-
+                            GlobalVars.day = "vi";
                         if (which == 1) {
                             selectedLanguage = "en";
+                            GlobalVars.day = "en";
                         }
+
                         LocaleHelper.setLocale(homeActivity, selectedLanguage);
                         homeActivity.recreate();
                     }
