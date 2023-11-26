@@ -22,6 +22,7 @@ public class ResetPasswordFindUsernameFragment extends Fragment {
     MainActivity loginActivity;
     Button btConfirm;
     EditText etUsername;
+    Fragment resetPassword;
     public ResetPasswordFindUsernameFragment(MainActivity mainActivity)
     {
         this.loginActivity = mainActivity;
@@ -30,8 +31,11 @@ public class ResetPasswordFindUsernameFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        InitVars();
     }
-
+    public void InitVars() {
+        resetPassword = new ResetPasswordFragment(loginActivity);
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         InitViews(view);
@@ -65,7 +69,8 @@ public class ResetPasswordFindUsernameFragment extends Fragment {
                                 String usernameResponse = element.get("username").getAsString();
                                 if(usernameRequest.equals(usernameResponse))
                                 {
-//                                    GlobalVars.uidUser = element.get("")
+                                    GlobalVars.uidUser = element.get("id").getAsString();
+//                                    loginActivity.replaceFragment(ResetPasswordFragment);
                                 }
                             }
                         }

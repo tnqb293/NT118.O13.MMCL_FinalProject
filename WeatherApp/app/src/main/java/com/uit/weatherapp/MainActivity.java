@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
-    public Fragment sign_up, sign_in, reset_password, reset_password_find_username;
+    public Fragment sign_up, sign_in, reset_password_find_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

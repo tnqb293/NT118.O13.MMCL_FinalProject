@@ -11,6 +11,7 @@ import com.uit.weatherapp.Interface.ListUserCallback;
 import com.uit.weatherapp.Interface.TokenCallback;
 import com.uit.weatherapp.Interface.UidCallback;
 import com.uit.weatherapp.model.Device;
+import com.uit.weatherapp.model.Map;
 import com.uit.weatherapp.model.RequestPostRealmUser;
 import com.uit.weatherapp.model.ResponsePostRealmUser;
 import com.uit.weatherapp.model.TokenAccess;
@@ -36,15 +37,31 @@ public class APIManager {
     private static final APIInterface putRealmRoles =  apiClient.getClient().create(APIInterface.class);
     private static final APIInterface putResetPassword =  apiClient.getClient().create(APIInterface.class);
     private static final APIInterface listUser = apiClient.getClient().create(APIInterface.class);
+    private static final APIInterface getMap = apiClient.getClient().create(APIInterface.class);
     public static void listUserFn(JsonObject request, ListUserCallback callback)
     {
         Call<JsonArray> call = listUser.listUser(request);
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                JsonArray data = response.body();
-                callback.onSuccess(data);
-                Log.d("Retrofit", "Call List User Success " + data);
+                if(response.isSuccessful())
+                {
+                    JsonArray data = response.body();
+                    callback.onSuccess(data);
+                    Log.d("Retrofit", "Call List User Success " + data);
+                }
+                else {
+                    // Handle unsuccessful response
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("Retrofit", "Error response1: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
             }
 
             @Override
@@ -243,6 +260,43 @@ public class APIManager {
             public void onFailure(Call<TokenAccess> call, Throwable t) {
                 Log.e("Retrofit", "Network error: " + t.getMessage());
                 callback.onFailure("Network error: " + t.getMessage());
+            }
+        });
+
+    }
+    public static void getMap() {
+        Call<Map> call = getMap.getMap();
+        call.enqueue(new Callback<Map>() {
+            @Override
+            public void onResponse(Call<Map> call, Response<Map> response) {
+                if (response.isSuccessful())
+                {
+//                    TokenAccess data = response.body();
+//                    Log.d("Retrofit", "Token is: " + data.access_token);
+//                    APIClient.UserToken = data.access_token;
+                    Map.setMapObj(response.body());
+                    Log.d("Retrofit", "Call Map Success ");
+//                    callback.onSuccess(APIClient.UserToken);
+                }
+                else {
+                    try {
+                        String errorBody = response.errorBody().string();
+//                        APIClient.UserToken = "";
+                        Log.e("Retrofit", "Error response: " + errorBody);
+//                        callback.onFailure("Error response: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Map> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+
             }
         });
     }

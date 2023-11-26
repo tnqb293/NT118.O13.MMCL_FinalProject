@@ -3,6 +3,7 @@ package com.uit.weatherapp.Interface;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uit.weatherapp.model.Device;
+import com.uit.weatherapp.model.Map;
 import com.uit.weatherapp.model.RequestPostRealmUser;
 import com.uit.weatherapp.model.ResponsePostRealmUser;
 import com.uit.weatherapp.model.TokenAccess;
@@ -38,4 +39,6 @@ public interface APIInterface {
     @Headers("Content-Type: application/json")
     @POST("api/master/user/query")
     Call<JsonArray> listUser(@Body JsonObject body);
+    @GET("api/master/map")
+    Call<Map> getMap();
 }

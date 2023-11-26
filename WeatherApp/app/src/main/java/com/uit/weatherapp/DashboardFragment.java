@@ -74,6 +74,9 @@ public class DashboardFragment extends Fragment implements DataLoadedCallback {
             @Override
             public void onSuccess(String token) {
                 APIManager.getData(DashboardFragment.this);
+                new Thread(() -> {
+//                    APIManager.getMap();
+                }).start();
                 String welcomeUser = String.join(" ", getResources().getString(R.string.username_default), GlobalVars.username);
                 tvHelloUser.setText(welcomeUser);
             }

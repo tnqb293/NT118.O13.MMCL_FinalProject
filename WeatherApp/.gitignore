@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+WeatherApp/app/src/main/res/values/developer-config.xml
