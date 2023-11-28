@@ -8,7 +8,7 @@
     <View
         android:id="@+id/v_banner"
         android:layout_width="410dp"
-        android:layout_height="169dp"
+        android:layout_height="70dp"
         android:background="@drawable/bg_banner_setting"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -27,47 +27,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
         />
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_image_user"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:cardCornerRadius="60dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_setting"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp">
 
-        <ImageView
-            android:id="@+id/iv_image_user"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/img_default"
-            android:scaleType="centerCrop"
-            />
-    </androidx.cardview.widget.CardView>
-    <TextView
-        android:id="@+id/tv_username_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tv_setting"
-        app:layout_constraintLeft_toRightOf="@id/cv_image_user"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="15dp"
-        android:text="@string/name_banner"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:textColor="@color/white"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_username_setting"
-        app:layout_constraintLeft_toRightOf="@id/cv_image_user"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="15dp"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:text="@string/email_banner"/>
+
+
     <TextView
         android:id="@+id/tv_personal_information"
         android:layout_width="wrap_content"
@@ -81,64 +43,35 @@
         android:textColor="@color/black"
         android:text="@string/information"
         />
-    <ImageView
-        android:id="@+id/iv_person1"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_personal_information"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="30dp"
-        android:src="@drawable/ic_person1"/>
-    <TextView
-        android:id="@+id/tv_fulname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="@string/full_name"
-        android:textStyle="bold"
-        android:textSize="14dp"
-        android:textColor="@color/black"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_fulname"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginLeft="10dp"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        android:textColor="#002761"
-        android:text="@string/edit_full_name"/>
+
     <ImageView
         android:id="@+id/iv_email"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_personal_information"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
         android:src="@drawable/ic_mail"/>
+
     <TextView
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="55dp"
+        app:layout_constraintLeft_toRightOf="@id/iv_email"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:text="@string/email_address"
         android:textStyle="bold"
         android:textSize="14dp"
         android:textColor="@color/black"/>
     <TextView
+        android:id="@+id/tv_full_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_fulname"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="45dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_email"
+        app:layout_constraintLeft_toRightOf="@id/iv_email"
         android:layout_marginLeft="10dp"
         android:textSize="12dp"
         android:textStyle="bold"
@@ -150,7 +83,7 @@
         android:layout_height="30dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_personal_information"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="30dp"
         android:src="@drawable/ic_username"/>
     <TextView
@@ -158,72 +91,132 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toRightOf="@id/iv_username"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="10dp"
         android:text="@string/user_name"
         android:textStyle="bold"
         android:textSize="14dp"
         android:textColor="@color/black"/>
     <TextView
+        android:id="@+id/tv_full_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_fulname"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="90dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_username"
+        app:layout_constraintLeft_toRightOf="@id/iv_username"
         android:layout_marginLeft="10dp"
         android:textSize="12dp"
         android:textStyle="bold"
         android:textColor="#002761"
         android:text="@string/edit_user_name"/>
     <ImageView
-        android:id="@+id/iv_password"
+        android:id="@+id/iv_id"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_personal_information"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="110dp"
         android:layout_marginLeft="30dp"
-        android:src="@drawable/ic_lock"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/ic_id"/>
     <TextView
-        android:id="@+id/tv_password"
+        android:id="@+id/tv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="145dp"
+        app:layout_constraintLeft_toRightOf="@id/iv_language"
+        android:layout_marginTop="105dp"
         android:layout_marginLeft="10dp"
-        android:text="@string/pass_word"
+        android:text="@string/id"
         android:textStyle="bold"
         android:textSize="14dp"
         android:textColor="@color/black"/>
     <TextView
+        android:id="@+id/tv_full_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_fulname"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="135dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_id"
+        app:layout_constraintLeft_toRightOf="@id/iv_id"
+
         android:layout_marginLeft="10dp"
         android:textSize="12dp"
         android:textStyle="bold"
         android:textColor="#002761"
-        android:text="@string/edit_pass_word"/>
+        android:text="@string/full_id"/>
     <ImageView
-        android:id="@+id/bt_edit_password"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:layout_constraintLeft_toRightOf="@id/iv_password"
+        android:id="@+id/iv_create"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="155dp"
+        android:layout_marginLeft="30dp"
         app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
-        android:layout_marginTop="160dp"
-        android:layout_marginStart="280dp"
-        android:background="@drawable/ic_edit"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/ic_createon"/>
+    <TextView
+        android:id="@+id/tv_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
+        app:layout_constraintLeft_toRightOf="@id/iv_language"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/createOn"
+        android:textStyle="bold"
+        android:textSize="14dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/tv_create_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_create"
+        app:layout_constraintLeft_toRightOf="@id/iv_create"
+
+        android:layout_marginLeft="10dp"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:textColor="#002761"
+        android:text="November 28, 2023"/>
+    <ImageView
+        android:id="@+id/iv_service"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/ic_service"/>
+    <TextView
+        android:id="@+id/tv_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
+        app:layout_constraintLeft_toRightOf="@id/iv_language"
+        android:layout_marginTop="195dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/service"
+        android:textStyle="bold"
+        android:textSize="14dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/tv_status_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_service"
+        app:layout_constraintLeft_toRightOf="@id/iv_service"
+
+        android:layout_marginLeft="10dp"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:textColor="#002761"
+        android:text="@string/serviceOn"/>
+
+
     <ImageView
         android:id="@+id/iv_language"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_personal_information"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="195dp"
+        android:layout_marginTop="250dp"
         android:layout_marginLeft="30dp"
         android:src="@drawable/ic_language"/>
     <TextView
@@ -231,8 +224,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="190dp"
+        app:layout_constraintLeft_toRightOf="@id/iv_language"
+        android:layout_marginTop="245dp"
         android:layout_marginLeft="10dp"
         android:text="@string/language"
         android:textStyle="bold"
@@ -241,9 +234,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_fulname"
-        app:layout_constraintLeft_toRightOf="@id/iv_person1"
-        android:layout_marginTop="180dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_language"
+        app:layout_constraintLeft_toRightOf="@id/iv_language"
+
         android:layout_marginLeft="10dp"
         android:textSize="12dp"
         android:textStyle="bold"
@@ -255,7 +248,7 @@
         android:layout_height="20dp"
         app:layout_constraintLeft_toRightOf="@id/iv_language"
         app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
-        android:layout_marginTop="205dp"
+        android:layout_marginTop="250dp"
         android:layout_marginStart="280dp"
         android:background="@drawable/ic_edit"/>
     <Button
@@ -265,7 +258,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_personal_information"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="500dp"
         android:background="@drawable/bg_button_login"
         android:text="@string/logout"
         android:textStyle="bold"/>

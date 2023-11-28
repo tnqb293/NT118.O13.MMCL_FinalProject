@@ -74,4 +74,10 @@
     <string name="signup_fail">Registration Failed</string>
     <string name="signin_success">Login Successful</string>
     <string name="signin_fail">Login Failed. Incorrect username or password</string>
+    <string name="id">Identification Number</string>
+    <string name="full_id">21521865</string>
+    <string name="createOn">Creation Date</string>
+
+    <string name="service">Service</string>
+    <string name="serviceOn">Enable</string>
 </resources>

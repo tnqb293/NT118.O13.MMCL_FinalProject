@@ -74,4 +74,10 @@
     <string name="signup_fail">Đăng ký thất bại</string>
     <string name="signin_success">Đăng nhập thành công</string>
     <string name="signin_fail">Đăng nhập thất bại. Tên đăng nhập hoặc mật khẩu không chính xác</string>
+    <string name="id">Mã số định danh</string>
+    <string name="createOn">Ngày tạo tài khoản</string>
+    <string name="full_id">21521865</string>
+    <string name="service">Dịch vụ</string>
+    <string name="serviceOn">Khả dụng</string>
+
 </resources>

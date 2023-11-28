@@ -7,6 +7,7 @@ import com.uit.weatherapp.model.Map;
 import com.uit.weatherapp.model.RequestPostRealmUser;
 import com.uit.weatherapp.model.ResponsePostRealmUser;
 import com.uit.weatherapp.model.TokenAccess;
+import com.uit.weatherapp.model.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -41,4 +42,6 @@ public interface APIInterface {
     Call<JsonArray> listUser(@Body JsonObject body);
     @GET("api/master/map")
     Call<Map> getMap();
+    @GET("api/master/user/user")
+    Call<User> getInformationUser();
 }

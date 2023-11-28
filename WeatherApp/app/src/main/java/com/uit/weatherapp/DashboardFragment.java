@@ -74,6 +74,7 @@ public class DashboardFragment extends Fragment implements DataLoadedCallback {
             @Override
             public void onSuccess(String token) {
                 APIManager.getData(DashboardFragment.this);
+
                 new Thread(() -> {
 //                    APIManager.getMap();
                 }).start();

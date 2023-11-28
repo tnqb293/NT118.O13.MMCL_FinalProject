@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.uit.weatherapp.GlobalVars;
 import com.uit.weatherapp.Interface.APIInterface;
 import com.uit.weatherapp.Interface.DataLoadedCallback;
+import com.uit.weatherapp.Interface.InforUserCallback;
 import com.uit.weatherapp.Interface.ListUserCallback;
 import com.uit.weatherapp.Interface.TokenCallback;
 import com.uit.weatherapp.Interface.UidCallback;
@@ -15,10 +16,10 @@ import com.uit.weatherapp.model.Map;
 import com.uit.weatherapp.model.RequestPostRealmUser;
 import com.uit.weatherapp.model.ResponsePostRealmUser;
 import com.uit.weatherapp.model.TokenAccess;
+import com.uit.weatherapp.model.User;
 import com.uit.weatherapp.model.WeatherData;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +39,7 @@ public class APIManager {
     private static final APIInterface putResetPassword =  apiClient.getClient().create(APIInterface.class);
     private static final APIInterface listUser = apiClient.getClient().create(APIInterface.class);
     private static final APIInterface getMap = apiClient.getClient().create(APIInterface.class);
+    private static final APIInterface getUser = apiClient.getClient().create(APIInterface.class);
     public static void listUserFn(JsonObject request, ListUserCallback callback)
     {
         Call<JsonArray> call = listUser.listUser(request);
@@ -297,6 +299,36 @@ public class APIManager {
             public void onFailure(Call<Map> call, Throwable t) {
                 Log.e("Retrofit", "Network error: " + t.getMessage());
 
+            }
+        });
+
+    }
+    public static void getUser (InforUserCallback callback){
+
+        Call<User> call = getUser.getInformationUser();
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    callback.onSuccess(user);
+                    Log.d("Retrofit", "Info user is: " + user.username + "/" + user.email);
+                }
+                else {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        callback.onFailure(errorBody);
+                        Log.e("Retrofit", "Error response: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
             }
         });
     }
