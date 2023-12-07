@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AirSense</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="reset_password"><u>Reset Password?</u></string>
+    <string name="log_in">LOG IN</string>
+    <string name="or">OR</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="user_name">Username</string>
+    <string name="confirm_password">Confirm Password</string>
+</resources>

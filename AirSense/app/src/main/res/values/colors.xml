@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="hint_color">#AA0E55A7</color>
+    <color name="outline_color">#0E55A7</color>
+    <color name="line_horizontal">#A09F9F</color>
+    <color name="text_createAccount">#767474</color>
+</resources>

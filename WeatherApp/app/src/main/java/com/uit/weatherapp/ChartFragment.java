@@ -59,7 +59,7 @@ public class ChartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         InitViews(view);
         InitEvent();
-        APIManager.getMap();
+//        APIManager.getMap();
 
 //        tvValueHumidity.setText(APIClient.humidity);
         super.onViewCreated(view, savedInstanceState);

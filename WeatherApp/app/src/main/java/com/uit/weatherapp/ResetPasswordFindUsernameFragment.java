@@ -20,9 +20,11 @@ import com.uit.weatherapp.Interface.TokenCallback;
 
 public class ResetPasswordFindUsernameFragment extends Fragment {
     MainActivity loginActivity;
-    Button btConfirm;
+    Button btConfirm, btReturn;
     EditText etUsername;
     Fragment resetPassword;
+
+
     public ResetPasswordFindUsernameFragment(MainActivity mainActivity)
     {
         this.loginActivity = mainActivity;
@@ -35,6 +37,8 @@ public class ResetPasswordFindUsernameFragment extends Fragment {
     }
     public void InitVars() {
         resetPassword = new ResetPasswordFragment(loginActivity);
+//        resetPassword = new ResetPasswordFragment(loginActivity);
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -52,8 +56,12 @@ public class ResetPasswordFindUsernameFragment extends Fragment {
     public void InitViews(View v) {
         btConfirm = v.findViewById(R.id.bt_confirm);
         etUsername = v.findViewById(R.id.et_username_reset_password);
+        btReturn = v.findViewById(R.id.bt_return);
     }
     public void InitEvent() {
+        btReturn.setOnClickListener(v -> {
+            loginActivity.replaceFragment(loginActivity.sign_in);
+        });
         btConfirm.setOnClickListener(v -> {
             String usernameRequest = String.valueOf(etUsername.getText().toString());
             APIManager.getToken(GlobalVars.usernameAdmin, GlobalVars.passwordAdmin, new TokenCallback() {
@@ -70,7 +78,7 @@ public class ResetPasswordFindUsernameFragment extends Fragment {
                                 if(usernameRequest.equals(usernameResponse))
                                 {
                                     GlobalVars.uidUser = element.get("id").getAsString();
-//                                    loginActivity.replaceFragment(ResetPasswordFragment);
+
                                 }
                             }
                         }
@@ -88,6 +96,8 @@ public class ResetPasswordFindUsernameFragment extends Fragment {
 
                 }
             });
+            loginActivity.replaceFragment(loginActivity.reset_password);
+
         });
     }
     private JsonObject sendRequestListUser()

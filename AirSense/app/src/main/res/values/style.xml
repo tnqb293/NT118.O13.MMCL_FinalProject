@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomOutlinedBoxTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Customize attributes here -->
+        <item name="android:textSize">20sp</item>
+        <item name="boxStrokeColor">@color/outline_color</item>
+        <item name="hintTextColor">@color/hint_color</item>
+        <!-- Add more attributes to customize -->
+    </style>
+
+</resources>

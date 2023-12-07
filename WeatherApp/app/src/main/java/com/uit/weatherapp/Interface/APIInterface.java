@@ -44,4 +44,6 @@ public interface APIInterface {
     Call<Map> getMap();
     @GET("api/master/user/user")
     Call<User> getInformationUser();
+    @PUT("/user/{realm}/reset-password/{userId}")
+    Call<String> getResetPassword(@Path("userId") String userId, @Body JsonObject data);
 }

@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
-    public Fragment sign_up, sign_in, reset_password_find_username;
+    public Fragment sign_up, sign_in, reset_password_find_username, reset_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         sign_up = new SignUpFragment(this);
         sign_in = new SignInFragment(this);
         reset_password_find_username = new ResetPasswordFindUsernameFragment(this);
+        reset_password = new ResetPasswordFragment(this);
     }
     public void replaceFragment(Fragment fragment)
     {
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
             ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
         }
         else if (fragment == reset_password_find_username)
+        {
+            ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+        else if (fragment == reset_password)
         {
             ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
         }

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.uit.weatherapp.API.APIManager;
@@ -18,7 +19,7 @@ import com.uit.weatherapp.API.APIManager;
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class HomeActivity extends AppCompatActivity {
-    public Fragment dashboard, accountSetting, chart, fragment;
+    public Fragment dashboard, accountSetting, chart;
     public AnimatedBottomBar navBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,16 @@ public class HomeActivity extends AppCompatActivity {
         InitVars();
         InitViews();
         InitEvents();
+        APIManager.getMap();
         replaceFragmentLeftToRight(dashboard);
         navBar.selectTabAt(0, false);
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+
     private void InitVars()
     {
         dashboard = new DashboardFragment(this);
@@ -68,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
     private void InitViews() {
         navBar = findViewById(R.id.bottom_bar);
     }
+
     private void InitEvents() {
         navBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
