@@ -2,6 +2,7 @@ package com.uit.airsense.Fragment;
 
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -20,7 +21,11 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.uit.airsense.API.APIManager;
+import com.uit.airsense.HomeActivity;
+import com.uit.airsense.Interface.TokenCallback;
 import com.uit.airsense.MainActivity;
+import com.uit.airsense.Model.GlobalVars;
 import com.uit.airsense.R;
 
 public class FragmentSignIn extends Fragment {
@@ -94,7 +99,24 @@ public class FragmentSignIn extends Fragment {
                 tietPassword.setText(null);
             }
             else {
+                APIManager.getToken(email, password, new TokenCallback() {
+                    @Override
+                    public void onSuccess(String token) {
+                        GlobalVars.username = email;
+                        GlobalVars.password = password;
+                        loginActivity.runOnUiThread(() -> {
+                            Toast.makeText(loginActivity, "Login Successful", Toast.LENGTH_SHORT).show();
+                        });
+                        startActivity(new Intent(loginActivity, HomeActivity.class));
+                    }
 
+                    @Override
+                    public void onFailure(String errorMessage) {
+                        loginActivity.runOnUiThread(() -> {
+                            Toast.makeText(loginActivity, "Login Failed. Incorrect username or password", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                });
             }
         });
         btCreateAccount.setOnClickListener(v -> {

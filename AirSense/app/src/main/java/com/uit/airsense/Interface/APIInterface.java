@@ -2,6 +2,7 @@ package com.uit.airsense.Interface;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
@@ -31,4 +32,6 @@ public interface APIInterface {
     @Headers("Content-Type: application/json")
     @PUT("api/master/user/master/reset-password/{userId}")
     Call<String> updatePassword(@Path("userId") String userId, @Body JsonObject body);
+    @GET("api/master/map")
+    Call<Map> getMap();
 }

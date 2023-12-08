@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Vùng phủ lên ic_pin_green, vị trí và kích thước giống ic_pin_green -->
+    <item>
+        <inset
+            android:drawable="@drawable/ic_weather"
+            android:inset="2dp" />
+    </item>
+    <item
+        android:drawable="@drawable/ic_pin_green"
+        android:gravity="center">
+    </item>
+    <!-- Vùng phủ lên ic_pin_green với kích thước nhỏ hơn, chính giữa -->
+
+</layer-list>

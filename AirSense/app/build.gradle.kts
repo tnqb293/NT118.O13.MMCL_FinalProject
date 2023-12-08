@@ -45,5 +45,16 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     //Navbar
     implementation ("nl.joery.animatedbottombar:library:1.1.0")
+    // MapBox
+
+    implementation ("com.mapbox.maps:android:10.12.1") {
+        exclude(group = "org.jetbrains.kotlin")
+    }
+    implementation ("com.mapbox.plugin:maps-lifecycle:10.13.0-beta.1") {
+        exclude(group = "org.jetbrains.kotlin")
+    }
+    implementation ("com.mapbox.plugin:maps-scalebar:10.13.0-beta.1") {
+        exclude(group = "org.jetbrains.kotlin")
+    }
 
 }

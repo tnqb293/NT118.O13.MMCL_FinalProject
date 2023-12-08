@@ -8,6 +8,7 @@ import com.uit.airsense.Interface.APIInterface;
 import com.uit.airsense.Interface.TokenCallback;
 import com.uit.airsense.Interface.UidCallback;
 import com.uit.airsense.Model.GlobalVars;
+import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
@@ -22,6 +23,36 @@ public class APIManager {
     private static final APIClient apiClient = new APIClient();
     private static final APIInterface tokenAccess = apiClient.getTokenAccess().create(APIInterface.class);
     private static final APIInterface apiData = apiClient.getClient().create(APIInterface.class);
+    public static void getMap() {
+        Call<Map> call = apiData.getMap();
+        call.enqueue(new Callback<Map>() {
+            @Override
+            public void onResponse(Call<Map> call, Response<Map> response) {
+                if (response.isSuccessful())
+                {
+                    Map.setMapObj(response.body());
+                    Log.d("Retrofit", "Call Map Success ");
+                }
+                else {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("Retrofit", "Error response: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Map> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+            }
+        });
+
+    }
     public static void resetPassword(JsonObject request, String uid)
     {
         Call<String> call = apiData.updatePassword(uid, request);
