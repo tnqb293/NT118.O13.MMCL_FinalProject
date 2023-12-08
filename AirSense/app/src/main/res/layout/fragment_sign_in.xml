@@ -15,7 +15,7 @@
         android:layout_marginTop="30dp"
         android:hint="@string/email">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietEmail"
+            android:id="@+id/tietEmailSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -28,7 +28,7 @@
         android:layout_marginTop="20dp"
         android:hint="@string/password">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietPassword"
+            android:id="@+id/tietPasswordSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -43,6 +43,7 @@
         android:textColor="@color/hint_color"
         />
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btLoginSignin"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
@@ -62,6 +63,7 @@
         android:textSize="20sp"
         />
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btCreateAccount"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"

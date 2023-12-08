@@ -15,8 +15,8 @@
         android:src="@drawable/bg_login"
         android:scaleType="centerCrop"
         />
-    <TextSwitcher
-        android:id="@+id/tsSignIn"
+    <TextView
+        android:id="@+id/tvSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

@@ -10,4 +10,7 @@
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="user_name">Username</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="map">Map</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="account">Account</string>
 </resources>
