@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mapbox.geojson.Point;
 import com.mapbox.maps.CameraBoundsOptions;
 import com.mapbox.maps.CameraOptions;
@@ -41,6 +42,9 @@ public class FragmentMap extends Fragment {
     Map mapData;
     static MapboxMap mapboxMap;
     private boolean firstTime = true;
+    AnnotationPlugin annoPlugin;
+    AnnotationConfig annoConfig;
+    PointAnnotationManager pointAnnoManager;
     public String lastSelectedId = "";
 
     public FragmentMap(HomeActivity activity)
@@ -83,8 +87,12 @@ public class FragmentMap extends Fragment {
     public void InitViews(View v) {
         mapView = v.findViewById(R.id.mapView);
     }
+    public void InitEvent() {
+
+    }
     private void setMapView() {
         Point point = Point.fromLngLat(106.80280655508835, 10.869778736885038);
+        Point point1 = Point.fromLngLat(106.80345028525176, 10.869905172970164);
         mapData = Map.getMapObj();
         // Ensure mapView and related components are properly initialized and shown
         mapboxMap = mapView.getMapboxMap();
@@ -93,18 +101,35 @@ public class FragmentMap extends Fragment {
             style.removeStyleLayer("poi-level-1");
             style.removeStyleLayer("highway-name-major");
             // Create a red marker icon
-            AnnotationPlugin annoPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
-            AnnotationConfig annoConfig = new AnnotationConfig("map_annotation");
-            PointAnnotationManager pointAnnoManager = (PointAnnotationManager) annoPlugin.createAnnotationManager(AnnotationType.PointAnnotation, annoConfig);
+            annoPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
+            annoConfig = new AnnotationConfig("map_annotation");
+            pointAnnoManager = (PointAnnotationManager) annoPlugin.createAnnotationManager(AnnotationType.PointAnnotation, annoConfig);
+            pointAnnoManager.addClickListener(pointAnnotation -> {
+                String id = Objects.requireNonNull(pointAnnotation.getData()).getAsJsonObject().get("id").getAsString();
+                bottomSheet(id);
+                return true;
+            });
             // Add a red marker pin at specified coordinates
             ArrayList<PointAnnotationOptions> markerList = new ArrayList<>();
             Drawable iconDrawable = getResources().getDrawable(R.drawable.ic_pin_green); // Lấy tệp drawable XML
             Bitmap iconBitmap = drawableToBitmap(iconDrawable); // Chuyển đổi Drawable thành Bitmap
+            JsonObject idDeviceTemperature = new JsonObject();
+            idDeviceTemperature.addProperty("id", "5zI6XqkQVSfdgOrZ1MyWEf");
             PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
                     .withPoint(point)
-                    .withIconImage(iconBitmap);
+                    .withIconImage(iconBitmap)
+                    .withData(idDeviceTemperature);
 
             markerList.add(pointAnnotationOptions);
+            Drawable iconDrawable1 = getResources().getDrawable(R.drawable.ic_pin_green); // Lấy tệp drawable XML
+            Bitmap iconBitmap1 = drawableToBitmap(iconDrawable); // Chuyển đổi Drawable thành Bitmap
+            JsonObject idDeviceLight = new JsonObject();
+            idDeviceTemperature.addProperty("id", "6iWtSbgqMQsVq8RPkJJ9vo");
+            PointAnnotationOptions pointAnnotationOptions1 = new PointAnnotationOptions()
+                    .withPoint(point1)
+                    .withIconImage(iconBitmap1)
+                    .withData(idDeviceLight);
+            markerList.add(pointAnnotationOptions1);
             pointAnnoManager.create(markerList);
 
         });
@@ -147,12 +172,11 @@ public class FragmentMap extends Fragment {
 
         return bitmap;
     }
+    private void bottomSheet(String id)
+    {
+        if("5zI6XqkQVSfdgOrZ1MyWEf".equals(id))
+        {
 
-
-
-
-
-    public void InitEvent() {
-
+        }
     }
 }

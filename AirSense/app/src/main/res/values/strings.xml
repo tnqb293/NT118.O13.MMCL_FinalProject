@@ -13,4 +13,7 @@
     <string name="map">Map</string>
     <string name="dashboard">Dashboard</string>
     <string name="account">Account</string>
+    <string name="default_weather">Default Weather</string>
+    <string name="humidity_default_weather">Humidity (%)</string>
+    <string name="humidity_value_default_weather">89</string>
 </resources>

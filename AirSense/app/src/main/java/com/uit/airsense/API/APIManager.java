@@ -5,11 +5,15 @@ import android.util.Log;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uit.airsense.Interface.APIInterface;
+import com.uit.airsense.Interface.DataTemperatureCallback;
 import com.uit.airsense.Interface.TokenCallback;
 import com.uit.airsense.Interface.UidCallback;
 import com.uit.airsense.Model.GlobalVars;
 import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
+import com.uit.airsense.Model.Temperature;
+import com.uit.airsense.Model.TemperatureDataFloat;
+import com.uit.airsense.Model.TemperatureDataString;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
 
@@ -23,6 +27,46 @@ public class APIManager {
     private static final APIClient apiClient = new APIClient();
     private static final APIInterface tokenAccess = apiClient.getTokenAccess().create(APIInterface.class);
     private static final APIInterface apiData = apiClient.getClient().create(APIInterface.class);
+    public static void getTemperature(DataTemperatureCallback callback)
+    {
+        Call<Temperature> call = apiData.getTemperatureData();
+        call.enqueue(new Callback<Temperature>() {
+            @Override
+            public void onResponse(Call<Temperature> call, Response<Temperature> response) {
+                if(response.isSuccessful())
+                {
+                    Temperature data = response.body();
+                    TemperatureDataFloat humidity = data.humidity;
+                    TemperatureDataFloat temperature = data.temperature;
+                    TemperatureDataFloat rainfall = data.rainfall;
+                    TemperatureDataFloat windDirection = data.windDirection;
+                    TemperatureDataFloat windSpeed = data.windSpeed;
+                    TemperatureDataString manufacturer = data.manufacturer;
+                    TemperatureDataString place = data.place;
+                    String nameDevice = data.name;
+                    callback.onSuccess(temperature, humidity, windSpeed, windDirection, rainfall, place, manufacturer, nameDevice);
+                    Log.d("Retrofit", "Call data Temperature Success");
+                }
+                else
+                {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        callback.onFailure(errorBody);
+                        Log.e("Retrofit", "Error response: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Temperature> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+            }
+        });
+    }
     public static void getMap() {
         Call<Map> call = apiData.getMap();
         call.enqueue(new Callback<Map>() {

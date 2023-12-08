@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
+import com.uit.airsense.Model.Temperature;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
 
@@ -34,4 +35,6 @@ public interface APIInterface {
     Call<String> updatePassword(@Path("userId") String userId, @Body JsonObject body);
     @GET("api/master/map")
     Call<Map> getMap();
+    @GET("api/master/asset/5zI6XqkQVSfdgOrZ1MyWEf")
+    Call<Temperature> getTemperatureData();
 }
