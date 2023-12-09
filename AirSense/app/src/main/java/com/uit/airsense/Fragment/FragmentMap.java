@@ -35,14 +35,10 @@ import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 
 import com.uit.airsense.API.APIManager;
 import com.uit.airsense.HomeActivity;
+import com.uit.airsense.Interface.DataLightCallback;
 import com.uit.airsense.Interface.DataTemperatureCallback;
 import com.uit.airsense.Model.Map;
-import com.uit.airsense.Model.TemperatureDataFloat;
-import com.uit.airsense.Model.TemperatureDataInt;
-import com.uit.airsense.Model.TemperatureDataString;
 import com.uit.airsense.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -202,9 +198,11 @@ public class FragmentMap extends Fragment {
             TextView tvTemperature = bottomSheetDialog.findViewById(R.id.tvValueTemperature);
             TextView tvWindDirection = bottomSheetDialog.findViewById(R.id.tvValueWindDirection);
             TextView tvWindSpeed = bottomSheetDialog.findViewById(R.id.tvValueWindSpeed);
+            TextView tvTitle = bottomSheetDialog.findViewById(R.id.tvDefaultWeather);
             APIManager.getTemperature(new DataTemperatureCallback() {
                 @Override
                 public void onSuccess(float temperature, int humidity, float windSpeed, int windDirection, float rainfall, String place, String manufacture, String nameDevice) {
+                    tvTitle.setText(nameDevice);
                     tvHumidity.setText(String.valueOf(humidity));
                     tvPlace.setText(place);
                     tvManufacturer.setText(manufacture);
@@ -212,6 +210,42 @@ public class FragmentMap extends Fragment {
                     tvWindDirection.setText(String.valueOf(windDirection));
                     tvWindSpeed.setText(String.valueOf(windSpeed));
                     tvRainfall.setText(String.valueOf(rainfall));
+                }
+
+                @Override
+                public void onFailure(String errorMessage) {
+                    Toast.makeText(homeActivity, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            });
+            bottomSheetDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            bottomSheetDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            bottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+        }
+        else if("6iWtSbgqMQsVq8RPkJJ9vo".equals(id))
+        {
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity(), R.style.CustomDialogTheme);
+            View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_light, null);
+            bottomSheetDialog.setContentView(bottomSheetView);
+            bottomSheetView.setBackgroundResource(R.drawable.bg_dialog);
+            bottomSheetDialog.setCanceledOnTouchOutside(true);
+            bottomSheetDialog.show();
+
+            TextView tvBrightness = bottomSheetDialog.findViewById(R.id.tvValueBrightness);
+            TextView tvColourTemperature = bottomSheetDialog.findViewById(R.id.tvValueColourTemperature);
+            TextView tvEmail = bottomSheetDialog.findViewById(R.id.tvValueEmail);
+            TextView tvOnOff = bottomSheetDialog.findViewById(R.id.tvValueOnOff);
+            TextView tvTitle = bottomSheetDialog.findViewById(R.id.tvDefaultLight);
+            APIManager.getLight(new DataLightCallback() {
+                @Override
+                public void onSuccess(int brightness, int colourTemperature, String email, boolean onOff, String nameDevice) {
+                    tvEmail.setText(email);
+                    tvBrightness.setText(String.valueOf(brightness));
+                    tvColourTemperature.setText(String.valueOf(colourTemperature));
+                    tvTitle.setText(nameDevice);
+                    if(onOff)
+                        tvOnOff.setText(getString(R.string.on));
+                    else
+                        tvOnOff.setText(getString(R.string.off));
                 }
 
                 @Override

@@ -5,17 +5,20 @@ import android.util.Log;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uit.airsense.Interface.APIInterface;
+import com.uit.airsense.Interface.DataLightCallback;
 import com.uit.airsense.Interface.DataTemperatureCallback;
 import com.uit.airsense.Interface.TokenCallback;
 import com.uit.airsense.Interface.UidCallback;
+import com.uit.airsense.Model.ApiDataBoolean;
 import com.uit.airsense.Model.Attribute;
 import com.uit.airsense.Model.GlobalVars;
+import com.uit.airsense.Model.Light;
 import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
 import com.uit.airsense.Model.Temperature;
-import com.uit.airsense.Model.TemperatureDataFloat;
-import com.uit.airsense.Model.TemperatureDataInt;
-import com.uit.airsense.Model.TemperatureDataString;
+import com.uit.airsense.Model.ApiDataFloat;
+import com.uit.airsense.Model.ApiDataInt;
+import com.uit.airsense.Model.ApiDataString;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
 
@@ -29,6 +32,43 @@ public class APIManager {
     private static final APIClient apiClient = new APIClient();
     private static final APIInterface tokenAccess = apiClient.getTokenAccess().create(APIInterface.class);
     private static final APIInterface apiData = apiClient.getClient().create(APIInterface.class);
+    public static void getLight(DataLightCallback callback)
+    {
+        Call<Attribute> call = apiData.getLightData();
+        call.enqueue(new Callback<Attribute>() {
+            @Override
+            public void onResponse(Call<Attribute> call, Response<Attribute> response) {
+                if(response.isSuccessful())
+                {
+                    Attribute dataObject = response.body();
+                    Light data = new Light(dataObject.attribute);
+                    ApiDataInt brightness = new ApiDataInt(data.brightness);
+                    ApiDataInt colourTemperature = new ApiDataInt(data.colourTemperature);
+                    ApiDataString email = new ApiDataString(data.email);
+                    ApiDataBoolean onOff = new ApiDataBoolean(data.onOff);
+                    String nameDevice = dataObject.name;
+                    callback.onSuccess(brightness.value, colourTemperature.value, email.value,onOff.value, nameDevice);
+                }
+                else
+                {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        callback.onFailure(errorBody);
+                        Log.e("Retrofit", "Error response: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Attribute> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+            }
+        });
+    }
     public static void getTemperature(DataTemperatureCallback callback)
     {
         Call<Attribute> call = apiData.getTemperatureData();
@@ -40,13 +80,13 @@ public class APIManager {
                     Attribute dataObject = response.body();
                     Log.d("Retrofit", String.valueOf(dataObject));
                     Temperature data = new Temperature(dataObject.attribute);
-                    TemperatureDataInt humidity = new TemperatureDataInt(data.humidity);
-                    TemperatureDataFloat temperature = new TemperatureDataFloat(data.temperature);
-                    TemperatureDataFloat rainfall = new TemperatureDataFloat(data.rainfall);
-                    TemperatureDataInt windDirection = new TemperatureDataInt(data.windDirection);
-                    TemperatureDataFloat windSpeed = new TemperatureDataFloat(data.windSpeed);
-                    TemperatureDataString manufacturer = new TemperatureDataString(data.manufacturer);
-                    TemperatureDataString place = new TemperatureDataString(data.place);
+                    ApiDataInt humidity = new ApiDataInt(data.humidity);
+                    ApiDataFloat temperature = new ApiDataFloat(data.temperature);
+                    ApiDataFloat rainfall = new ApiDataFloat(data.rainfall);
+                    ApiDataInt windDirection = new ApiDataInt(data.windDirection);
+                    ApiDataFloat windSpeed = new ApiDataFloat(data.windSpeed);
+                    ApiDataString manufacturer = new ApiDataString(data.manufacturer);
+                    ApiDataString place = new ApiDataString(data.place);
                     String nameDevice = dataObject.name;
                     callback.onSuccess(temperature.value, humidity.value, windSpeed.value, windDirection.value, rainfall.value, place.value, manufacturer.value, nameDevice);
                     Log.d("Retrofit", "Call data Temperature Success");

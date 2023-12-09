@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.uit.airsense.Model.Attribute;
 import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
-import com.uit.airsense.Model.Temperature;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
 
@@ -38,4 +37,6 @@ public interface APIInterface {
     Call<Map> getMap();
     @GET("api/master/asset/5zI6XqkQVSfdgOrZ1MyWEf")
     Call<Attribute> getTemperatureData();
+    @GET("api/master/asset/6iWtSbgqMQsVq8RPkJJ9vo")
+    Call<Attribute> getLightData();
 }

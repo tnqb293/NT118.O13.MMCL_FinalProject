@@ -31,4 +31,13 @@
     <string name="humidity_value_default_weather">89</string>
     <string name="margin_top_value_default_weather">10dp</string>
     <string name="text_size_value_default_weather">16sp</string>
+    <string name="light_default_light">Light</string>
+    <string name="brightness_default_light">Brightness (%)</string>
+    <string name="colour_RGB_default_light">Colour RGB</string>
+    <string name="colour_temperature_default_light">Colour temperature (K)</string>
+    <string name="email_default_light">Email</string>
+    <string name="on_off_default_light">On off</string>
+    <string name="tags_default_light">Tags</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
 </resources>
