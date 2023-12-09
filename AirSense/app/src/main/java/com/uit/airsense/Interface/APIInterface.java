@@ -2,6 +2,7 @@ package com.uit.airsense.Interface;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.uit.airsense.Model.Attribute;
 import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
 import com.uit.airsense.Model.Temperature;
@@ -36,5 +37,5 @@ public interface APIInterface {
     @GET("api/master/map")
     Call<Map> getMap();
     @GET("api/master/asset/5zI6XqkQVSfdgOrZ1MyWEf")
-    Call<Temperature> getTemperatureData();
+    Call<Attribute> getTemperatureData();
 }

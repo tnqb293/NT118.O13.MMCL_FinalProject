@@ -15,5 +15,20 @@
     <string name="account">Account</string>
     <string name="default_weather">Default Weather</string>
     <string name="humidity_default_weather">Humidity (%)</string>
+    <string name="manufacturer_default_weather">Manufacturer</string>
+    <string name="place_default_weather">Place</string>
+    <string name="rainfall_default_weather">Rainfall (mm)</string>
+    <string name="sun_alti_default_weather">Sun altitude</string>
+    <string name="sun_azi_default_weather">Sun azimuth</string>
+    <string name="sun_irr_default_weather">Sun irradiance</string>
+    <string name="sun_zenith_default_weather">Sun zenith</string>
+    <string name="tags_default_weather">Tags</string>
+    <string name="temperature_default_weather">Temperature (°C)</string>
+    <string name="uv_index_default_weather">UV index</string>
+    <string name="wind_direction_default_weather">Wind direction</string>
+    <string name="wind_speed_default_weather">Wind speed (km/h)</string>
+    <string name="nan_value_default_weather">-</string>
     <string name="humidity_value_default_weather">89</string>
+    <string name="margin_top_value_default_weather">10dp</string>
+    <string name="text_size_value_default_weather">16sp</string>
 </resources>

@@ -8,11 +8,13 @@ import com.uit.airsense.Interface.APIInterface;
 import com.uit.airsense.Interface.DataTemperatureCallback;
 import com.uit.airsense.Interface.TokenCallback;
 import com.uit.airsense.Interface.UidCallback;
+import com.uit.airsense.Model.Attribute;
 import com.uit.airsense.Model.GlobalVars;
 import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
 import com.uit.airsense.Model.Temperature;
 import com.uit.airsense.Model.TemperatureDataFloat;
+import com.uit.airsense.Model.TemperatureDataInt;
 import com.uit.airsense.Model.TemperatureDataString;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
@@ -29,22 +31,24 @@ public class APIManager {
     private static final APIInterface apiData = apiClient.getClient().create(APIInterface.class);
     public static void getTemperature(DataTemperatureCallback callback)
     {
-        Call<Temperature> call = apiData.getTemperatureData();
-        call.enqueue(new Callback<Temperature>() {
+        Call<Attribute> call = apiData.getTemperatureData();
+        call.enqueue(new Callback<Attribute>() {
             @Override
-            public void onResponse(Call<Temperature> call, Response<Temperature> response) {
+            public void onResponse(Call<Attribute> call, Response<Attribute> response) {
                 if(response.isSuccessful())
                 {
-                    Temperature data = response.body();
-                    TemperatureDataFloat humidity = data.humidity;
-                    TemperatureDataFloat temperature = data.temperature;
-                    TemperatureDataFloat rainfall = data.rainfall;
-                    TemperatureDataFloat windDirection = data.windDirection;
-                    TemperatureDataFloat windSpeed = data.windSpeed;
-                    TemperatureDataString manufacturer = data.manufacturer;
-                    TemperatureDataString place = data.place;
-                    String nameDevice = data.name;
-                    callback.onSuccess(temperature, humidity, windSpeed, windDirection, rainfall, place, manufacturer, nameDevice);
+                    Attribute dataObject = response.body();
+                    Log.d("Retrofit", String.valueOf(dataObject));
+                    Temperature data = new Temperature(dataObject.attribute);
+                    TemperatureDataInt humidity = new TemperatureDataInt(data.humidity);
+                    TemperatureDataFloat temperature = new TemperatureDataFloat(data.temperature);
+                    TemperatureDataFloat rainfall = new TemperatureDataFloat(data.rainfall);
+                    TemperatureDataInt windDirection = new TemperatureDataInt(data.windDirection);
+                    TemperatureDataFloat windSpeed = new TemperatureDataFloat(data.windSpeed);
+                    TemperatureDataString manufacturer = new TemperatureDataString(data.manufacturer);
+                    TemperatureDataString place = new TemperatureDataString(data.place);
+                    String nameDevice = dataObject.name;
+                    callback.onSuccess(temperature.value, humidity.value, windSpeed.value, windDirection.value, rainfall.value, place.value, manufacturer.value, nameDevice);
                     Log.d("Retrofit", "Call data Temperature Success");
                 }
                 else
@@ -62,7 +66,7 @@ public class APIManager {
             }
 
             @Override
-            public void onFailure(Call<Temperature> call, Throwable t) {
+            public void onFailure(Call<Attribute> call, Throwable t) {
                 Log.e("Retrofit", "Network error: " + t.getMessage());
             }
         });

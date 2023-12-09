@@ -2,7 +2,7 @@
 <resources>
     <style name="CustomOutlinedBoxTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <!-- Customize attributes here -->
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@string/text_size_value_default_weather</item>
         <item name="boxStrokeColor">@color/outline_color</item>
         <item name="hintTextColor">@color/hint_color</item>
         <!-- Add more attributes to customize -->

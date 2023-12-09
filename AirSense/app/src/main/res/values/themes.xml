@@ -4,14 +4,18 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 <!--        <item name="background">null</item>-->
+    </style>
+    <style name="Theme.AirSense" parent="Base.Theme.AirSense"/>
+
+    <style name="CustomDialogTheme" parent="Theme.Material3.DayNight.Dialog">
+        <!-- Tùy chỉnh background cho dialog -->
+        <item name="android:windowBackground">@android:color/transparent</item>
 
     </style>
 
-    <style name="Theme.AirSense" parent="Base.Theme.AirSense" />
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
 </resources>
