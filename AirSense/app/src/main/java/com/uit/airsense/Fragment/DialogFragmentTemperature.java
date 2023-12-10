@@ -18,11 +18,11 @@ import com.uit.airsense.R;
 
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
-public class TemperatureDialogFragment extends DialogFragment {
-    DialogFragment hourFragment;
+public class DialogFragmentTemperature extends DialogFragment {
+    DialogFragment hourFragment, dayFragment, weekFragment, monthFragment;
     AnimatedBottomBar navBar;
-    public static TemperatureDialogFragment newInstance() {
-        return new TemperatureDialogFragment();
+    public static DialogFragmentTemperature newInstance() {
+        return new DialogFragmentTemperature();
     }
 
     @Nullable
@@ -31,7 +31,7 @@ public class TemperatureDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_sheet, container, false);
 
         // Thêm Fragment vào Dialog
-        hourFragment = new HourTemperatureFragment();
+        hourFragment = new DialogFragmentHourTemperature();
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.fl_temperature, hourFragment) // R.id.fl_temperature là ID của layout trong dialog_sheet_temperature.xml để chứa Fragment
                 .commit();
@@ -44,6 +44,9 @@ public class TemperatureDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
         setCancelable(true);
+        dayFragment = new DialogFragmentDayTemperature();
+        weekFragment = new DialogFragmentWeekTemperature();
+        monthFragment = new DialogFragmentMonthTemperature();
         InitViews(view);
         InitEvents();
     }
@@ -81,10 +84,31 @@ public class TemperatureDialogFragment extends DialogFragment {
         navBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
             public void onTabSelected(int lastIndex, @Nullable AnimatedBottomBar.Tab lastTab, int newIndex, @NonNull AnimatedBottomBar.Tab newTab) {
-//                if(lastIndex == 0 && newIndex == 1)
-//                    replaceFragmentRightToLeft(hourFragment);
-//                else if(lastIndex == 1 && newIndex == 0)
-//                    replaceFragmentLeftToRight(secondFragment);
+                if(lastIndex == 0 && newIndex == 1)
+                    replaceFragmentRightToLeft(dayFragment);
+                else if(lastIndex == 0 && newIndex == 2)
+                    replaceFragmentRightToLeft(weekFragment);
+                else if (lastIndex == 0 && newIndex == 3)
+                    replaceFragmentRightToLeft(monthFragment);
+                else if(lastIndex == 1 && newIndex == 0)
+                    replaceFragmentLeftToRight(hourFragment);
+                else if(lastIndex == 1 && newIndex == 2)
+                    replaceFragmentRightToLeft(weekFragment);
+                else if(lastIndex == 1 && newIndex == 3)
+                    replaceFragmentRightToLeft(monthFragment);
+                else if(lastIndex == 2 &&  newIndex == 0)
+                    replaceFragmentLeftToRight(hourFragment);
+                else if(lastIndex == 2 && newIndex == 1)
+                    replaceFragmentLeftToRight(dayFragment);
+                else if(lastIndex == 2 && newIndex == 3)
+                    replaceFragmentRightToLeft(monthFragment);
+                else if(lastIndex == 3 && newIndex == 0)
+                    replaceFragmentLeftToRight(hourFragment);
+                else if(lastIndex == 3 && newIndex == 1)
+                    replaceFragmentLeftToRight(dayFragment);
+                else if(lastIndex == 3 && newIndex == 2)
+                    replaceFragmentLeftToRight(weekFragment);
+
             }
 
             @Override

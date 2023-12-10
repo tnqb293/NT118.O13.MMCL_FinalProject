@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -20,26 +19,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.DialogFragment;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
 import com.uit.airsense.API.APIManager;
 import com.uit.airsense.Interface.DataChartCallback;
 import com.uit.airsense.Model.GlobalVars;
-import com.uit.airsense.Model.XAxisTimeFormatter;
 import com.uit.airsense.R;
 
 import java.text.SimpleDateFormat;
@@ -49,11 +41,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class HourTemperatureFragment extends DialogFragment {
+public class DialogFragmentMonthTemperature extends DialogFragment {
     AppCompatButton btTimePicker;
     long current;
     JsonArray dataChart;
     GraphView graphView;
+    long previousTimeDay;
+    long nextTimeDay;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,10 +155,28 @@ public class HourTemperatureFragment extends DialogFragment {
 
     private JsonObject requestChartHour(long timeCurrent)
     {
+        Date date = new Date(timeCurrent);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, -29);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        previousTimeDay = calendar.getTimeInMillis();
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, 2);
+        calendar1.set(Calendar.MINUTE, 0);
+        calendar1.set(Calendar.HOUR_OF_DAY, 0);
+        calendar1.set(Calendar.SECOND, 0);
+        calendar1.set(Calendar.MILLISECOND, 0);
+
+        nextTimeDay = calendar1.getTimeInMillis();
         JsonObject request = new JsonObject();
         request.addProperty("type", GlobalVars.typeChart);
-        request.addProperty("fromTimestamp", timeCurrent - (3600 * 1000));
-        request.addProperty("toTimestamp", timeCurrent + (3600 * 1000));
+        request.addProperty("fromTimestamp", previousTimeDay);
+        request.addProperty("toTimestamp", nextTimeDay);
         request.addProperty("amountOfPoints", GlobalVars.amountOfPointsChart);
         return request;
     }
@@ -182,7 +194,7 @@ public class HourTemperatureFragment extends DialogFragment {
     }
     private void setupChart() {
         List<Pair<Long, Float>> dataList = fnSetTime(dataChart);
-        PointsGraphSeries<DataPoint> series = new PointsGraphSeries<>();
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         if (dataList != null && !dataList.isEmpty()) {
             int dataSize = dataList.size();
             for (int i = 0; i < dataSize; i++) {
@@ -194,16 +206,28 @@ public class HourTemperatureFragment extends DialogFragment {
         }
 
         // Customize the series appearance
+        series.setDrawDataPoints(true);
         series.setColor(Color.RED);
-        series.setSize(5);
+        series.setDataPointsRadius(10f);
+        series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                Date date = new Date((long) dataPoint.getX());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy, hh:mm:ss", Locale.ENGLISH);
+                String formattedDate = simpleDateFormat.format(date);
+
+                Toast.makeText(requireContext(), "Time: " + formattedDate + " / Y: " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
+            }
+        });
+//        series.setSize(5);
         graphView.removeAllSeries();
         graphView.addSeries(series);
-
+        graphView.setCursorMode(true);
         Animation animation = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_left);
         animation.setDuration(1000);
         graphView.setAnimation(animation);
 
-        graphView.getGridLabelRenderer().setNumHorizontalLabels(12);
+        graphView.getGridLabelRenderer().setNumHorizontalLabels(8);
         graphView.getGridLabelRenderer().setNumVerticalLabels(8);
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setLabelFormatter(new DefaultLabelFormatter() {
@@ -222,8 +246,8 @@ public class HourTemperatureFragment extends DialogFragment {
 
         // Set x-axis boundaries if needed
         if (!dataList.isEmpty()) {
-            long minX = current - (3600 + 60) * 1000;
-            long maxX = current  + (60 * 1000);
+            long minX = previousTimeDay;
+            long maxX = nextTimeDay;
             graphView.getViewport().setXAxisBoundsManual(true);
             graphView.getViewport().setMinX(minX);
             graphView.getViewport().setMaxX(maxX);
@@ -233,7 +257,12 @@ public class HourTemperatureFragment extends DialogFragment {
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(0);
         graphView.getViewport().setMaxY(40);
+//        graphView.getViewport().setDrawBorder(true);
+        graphView.getViewport().setScalable(true);
         graphView.invalidate();
         gridLabelRenderer.setTextSize(15);
+
+
+
     }
 }

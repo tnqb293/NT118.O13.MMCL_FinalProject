@@ -66,7 +66,7 @@ public class FragmentDashboard extends Fragment {
     }
     public void showDialogBarTemperature() {
         // Trong Fragment
-        TemperatureDialogFragment temperatureDialogFragment = TemperatureDialogFragment.newInstance();
+        DialogFragmentTemperature temperatureDialogFragment = DialogFragmentTemperature.newInstance();
         temperatureDialogFragment.show(getFragmentManager(), "temperature_dialog");
     }
 
