@@ -39,4 +39,7 @@ public interface APIInterface {
     Call<Attribute> getTemperatureData();
     @GET("api/master/asset/6iWtSbgqMQsVq8RPkJJ9vo")
     Call<Attribute> getLightData();
+    @Headers("Content-Type: application/json")
+    @POST("api/master/asset/datapoint/5zI6XqkQVSfdgOrZ1MyWEf/attribute/temperature")
+    Call<JsonArray> getChartTemperatureData(@Body JsonObject body);
 }

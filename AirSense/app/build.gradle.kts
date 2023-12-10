@@ -56,5 +56,10 @@ dependencies {
     implementation ("com.mapbox.plugin:maps-scalebar:10.13.0-beta.1") {
         exclude(group = "org.jetbrains.kotlin")
     }
+    //Lottie
+    implementation ("com.airbnb.android:lottie:6.2.0")
+    //MPChart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation ("com.jjoe64:graphview:4.2.2")
 
 }

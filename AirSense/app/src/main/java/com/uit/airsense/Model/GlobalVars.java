@@ -9,4 +9,7 @@ public class GlobalVars {
     public static String usernameAdmin = "maicuong";
     public static String passwordAdmin = "Steingate;0";
     public static String uidUser = "";
+    public static String typeChart = "lttb";
+    public static int amountOfPointsChart = 100;
+    public static long currentTime;
 }

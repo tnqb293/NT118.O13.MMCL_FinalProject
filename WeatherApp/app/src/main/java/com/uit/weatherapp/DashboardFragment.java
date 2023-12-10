@@ -159,7 +159,7 @@ public class DashboardFragment extends Fragment implements DataLoadedCallback {
 //        return inflater.inflate(R.layout.fragment_dashboard, container, false);
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         viewFlipper = view.findViewById(R.id.vf_item_sunrise);
-        LayoutInflater fragmentInflater = LayoutInflater.from(getActivity());
+//        LayoutInflater fragmentInflater = LayoutInflater.from(getActivity());
         viewFlipper.setInAnimation(getContext(), android.R.anim.slide_in_left);
         viewFlipper.setOutAnimation(getContext(), android.R.anim.slide_out_right);
 
