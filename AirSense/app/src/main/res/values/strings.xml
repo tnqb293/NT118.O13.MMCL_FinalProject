@@ -46,4 +46,6 @@
     <string name="percent">%</string>
     <string name="min">Min: </string>
     <string name="max">Max: </string>
+    <string name="km_h">km/h</string>
+    <string name="mm">mm</string>
 </resources>

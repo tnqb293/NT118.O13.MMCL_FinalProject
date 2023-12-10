@@ -45,4 +45,10 @@ public interface APIInterface {
     @Headers("Content-Type: application/json")
     @POST("api/master/asset/datapoint/5zI6XqkQVSfdgOrZ1MyWEf/attribute/humidity")
     Call<JsonArray> getChartHumidityData(@Body JsonObject body);
+    @Headers("Content-Type: application/json")
+    @POST("api/master/asset/datapoint/5zI6XqkQVSfdgOrZ1MyWEf/attribute/windSpeed")
+    Call<JsonArray> getChartWindSpeedData(@Body JsonObject body);
+    @Headers("Content-Type: application/json")
+    @POST("api/master/asset/datapoint/5zI6XqkQVSfdgOrZ1MyWEf/attribute/rainfall")
+    Call<JsonArray> getChartRainfallData(@Body JsonObject body);
 }

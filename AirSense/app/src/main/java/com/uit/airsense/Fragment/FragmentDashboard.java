@@ -30,9 +30,11 @@ import java.util.List;
 
 public class FragmentDashboard extends Fragment {
     HomeActivity homeActivity;
-    ImageView ivTemperature, ivHumidity;
+    ImageView ivTemperature, ivHumidity, ivWind, ivRainfall;
     TextView tvMainTemp, tvMinTemp, tvMaxTemp, tvItemTemp;
     TextView tvMainHumidity, tvMinHumidity, tvMaxHumidity, tvItemHumidity;
+    TextView tvMainWind, tvMinWind, tvMaxWind, tvItemWind;
+    TextView tvMainRainfall, tvMinRainfall, tvMaxRainfall, tvItemRainfall;
     long previousTimeDay, nextTimeDay;
     JsonArray dataApi;
     public FragmentDashboard(HomeActivity activity)
@@ -59,6 +61,8 @@ public class FragmentDashboard extends Fragment {
         InitViews(view);
         getDataMinMaxTemperature();
         getDataMinMaxHumidity();
+        getDataMinMaxWindSpeed();
+        getDataMinMaxRainfall();
         getDataWeather();
         if (viewFlipper != null) {
             viewFlipper.setInAnimation(getContext(), android.R.anim.slide_in_left);
@@ -87,6 +91,18 @@ public class FragmentDashboard extends Fragment {
         tvMaxHumidity = view.findViewById(R.id.tvMaxHumidity);
         tvMinHumidity = view.findViewById(R.id.tvMinHumidity);
         tvItemHumidity = view.findViewById(R.id.tvItemHumidity);
+        // Wind speed
+        ivWind = view.findViewById(R.id.ivWindSpeed);
+        tvMainWind = view.findViewById(R.id.tvMainWindSpeed);
+        tvMaxWind = view.findViewById(R.id.tvMaxWindSpeed);
+        tvMinWind = view.findViewById(R.id.tvMinWindSpeed);
+        tvItemWind = view.findViewById(R.id.tvItemWindSpeed);
+        // Rainfall
+        ivRainfall = view.findViewById(R.id.ivRainfall);
+        tvMainRainfall = view.findViewById(R.id.tvMainRainfall);
+        tvMaxRainfall = view.findViewById(R.id.tvMaxRainfall);
+        tvMinRainfall = view.findViewById(R.id.tvMinRainfall);
+        tvItemRainfall = view.findViewById(R.id.tvItemRainfall);
 
     }
     public void InitEvent()
@@ -98,6 +114,22 @@ public class FragmentDashboard extends Fragment {
         ivHumidity.setOnClickListener(v -> {
             showDialogBarHumidity();
         });
+        ivWind.setOnClickListener(v -> {
+            showDialogBarWindSpeed();
+        });
+        ivRainfall.setOnClickListener(v -> {
+            showDialogBarRainfall();
+        });
+    }
+    public void showDialogBarRainfall()
+    {
+        DialogFragmentRainfall rainfallDialogFragment = DialogFragmentRainfall.newInstance();
+        rainfallDialogFragment.show(getFragmentManager(), "rainfall_dialog");
+    }
+    public void showDialogBarWindSpeed()
+    {
+        DialogFragmentWindSpeed windSpeedDialogFragment = DialogFragmentWindSpeed.newInstance();
+        windSpeedDialogFragment.show(getFragmentManager(), "windSpeed_dialog");
     }
     public void showDialogBarTemperature() {
         DialogFragmentTemperature temperatureDialogFragment = DialogFragmentTemperature.newInstance();
@@ -114,6 +146,28 @@ public class FragmentDashboard extends Fragment {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.SECOND, 0);
+        previousTimeDay = calendar.getTimeInMillis();
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.getTimeInMillis();
+        calendar1.set(Calendar.MINUTE, 59);
+        calendar1.set(Calendar.HOUR_OF_DAY, 23);
+        calendar1.set(Calendar.SECOND, 59);
+        nextTimeDay = calendar1.getTimeInMillis();
+        JsonObject request = new JsonObject();
+        request.addProperty("type", GlobalVars.typeChart);
+        request.addProperty("fromTimestamp", previousTimeDay);
+        request.addProperty("toTimestamp", nextTimeDay);
+        request.addProperty("amountOfPoints", GlobalVars.amountOfPointsChart);
+        return request;
+    }
+    private JsonObject requestRainfall()
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.getTimeInMillis();
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.DAY_OF_MONTH, -30);
         previousTimeDay = calendar.getTimeInMillis();
         Calendar calendar1 = Calendar.getInstance();
         calendar1.getTimeInMillis();
@@ -159,6 +213,80 @@ public class FragmentDashboard extends Fragment {
             result.add(maxValue);
         }
         return result;
+    }
+    private List<Float> findMinAndMaxValuesFloat(JsonArray array) {
+        List<Pair<Long, Float>> dataList = new ArrayList<>();
+
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject jsonObject = array.get(i).getAsJsonObject();
+            long timestamp = jsonObject.get("x").getAsLong();
+            float value = jsonObject.get("y").getAsFloat();
+            dataList.add(new Pair<>(timestamp, value));
+        }
+
+        List<Float> result = new ArrayList<>();
+
+        if (!dataList.isEmpty()) {
+            float minValue = dataList.get(0).second;
+            float maxValue = dataList.get(0).second;
+
+            for (int i = 1; i < dataList.size(); i++) {
+                float currentValue = dataList.get(i).second;
+
+                if (currentValue < minValue) {
+                    minValue = currentValue;
+                }
+
+                if (currentValue > maxValue) {
+                    maxValue = currentValue;
+                }
+            }
+            result.add(minValue);
+            result.add(maxValue);
+        }
+        return result;
+    }
+    private void getDataMinMaxRainfall() {
+        JsonObject request = requestRainfall();
+        APIManager.getRainfallChart(request, new DataChartCallback() {
+            @Override
+            public void onSuccess(JsonArray data) {
+                dataApi = data;
+                List<Float> findMinMax = findMinAndMaxValuesFloat(dataApi);
+                String minRainfall = String.join("", getString(R.string.min), String.valueOf(findMinMax.get(0)),
+                        getString(R.string.mm));
+                String maxRainfall = String.join("", getString(R.string.max), String.valueOf(findMinMax.get(1)),
+                        getString(R.string.mm));
+                tvMinRainfall.setText(minRainfall);
+                tvMaxRainfall.setText(maxRainfall);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+
+            }
+        });
+    }
+    private void getDataMinMaxWindSpeed() {
+        JsonObject request = requestChartHour();
+        APIManager.getWindSpeedChart(request, new DataChartCallback() {
+            @Override
+            public void onSuccess(JsonArray data) {
+                dataApi = data;
+                List<Float> findMinMax = findMinAndMaxValuesFloat(dataApi);
+                String minWindSpeed = String.join("", getString(R.string.min), String.valueOf(findMinMax.get(0)),
+                        getString(R.string.km_h));
+                String maxWindSpeed = String.join("", getString(R.string.max), String.valueOf(findMinMax.get(1)),
+                        getString(R.string.km_h));
+                tvMinWind.setText(minWindSpeed);
+                tvMaxWind.setText(maxWindSpeed);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+
+            }
+        });
     }
     private void getDataMinMaxTemperature() {
         JsonObject request = requestChartHour();
@@ -208,8 +336,17 @@ public class FragmentDashboard extends Fragment {
             @Override
             public void onSuccess(float temperature, int humidity, float windSpeed, int windDirection, float rainfall, String place, String manufacture, String nameDevice) {
                 String temp = String.join("", String.valueOf((int)Math.floor(temperature)), getString(R.string.celsius));
+                String humi = String.join("", String.valueOf(humidity), getString(R.string.percent));
+                String wind = String.join("", String.valueOf(windSpeed), getString(R.string.km_h));
+                String rain = String.join("", String.valueOf(rainfall), getString(R.string.mm));
                 tvItemTemp.setText(temp);
                 tvMainTemp.setText(temp);
+                tvMainHumidity.setText(humi);
+                tvItemHumidity.setText(humi);
+                tvItemWind.setText(wind);
+                tvMainWind.setText(wind);
+                tvItemRainfall.setText(rain);
+                tvMainRainfall.setText(rain);
             }
 
             @Override
