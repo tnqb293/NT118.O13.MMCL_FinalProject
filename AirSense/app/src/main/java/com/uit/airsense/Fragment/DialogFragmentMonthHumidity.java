@@ -41,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class DialogFragmentWeekTemperature extends DialogFragment {
+public class DialogFragmentMonthHumidity extends DialogFragment {
     AppCompatButton btTimePicker;
     long current;
     JsonArray dataChart;
@@ -79,7 +79,7 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
         String currentTime = dateFormat.format(timeDefault.getTime());
         btTimePicker.setText(currentTime);
         current = timeDefault.getTimeInMillis();
-        loadTemperatureData(current); // Gọi API ban đầu khi Fragment được khởi tạo
+        loadHumidityData(current); // Gọi API ban đầu khi Fragment được khởi tạo
 
         btTimePicker.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
@@ -116,7 +116,7 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
                                             String selectedDateTime = String.format(Locale.getDefault(), "%02d/%02d/%d %02d:%02d", selectedMonth + 1, selectedDay, selectedYear, selectedHour, selectedMinute);
                                             btTimePicker.setText(selectedDateTime);
 
-                                            loadTemperatureData(selectedTimeInMillis); // Gọi API khi người dùng chọn ngày và giờ mới
+                                            loadHumidityData(selectedTimeInMillis); // Gọi API khi người dùng chọn ngày và giờ mới
                                         }
                                     },
                                     hour,
@@ -137,9 +137,9 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
     }
 
     // Phương thức để gọi API với thời gian mới và cập nhật dữ liệu
-    private void loadTemperatureData(long time) {
+    private void loadHumidityData(long time) {
         JsonObject newRequest = requestChartHour(time);
-        APIManager.getTemperatureChart(newRequest, new DataChartCallback() {
+        APIManager.getHumidityChart(newRequest, new DataChartCallback() {
             @Override
             public void onSuccess(JsonArray data) {
                 dataChart = data;
@@ -158,12 +158,20 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
         Date date = new Date(timeCurrent);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        calendar.add(Calendar.DAY_OF_YEAR, -29);
         calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         previousTimeDay = calendar.getTimeInMillis();
         Calendar calendar1 = Calendar.getInstance();
         calendar1.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, 2);
         calendar1.set(Calendar.MINUTE, 0);
+        calendar1.set(Calendar.HOUR_OF_DAY, 0);
+        calendar1.set(Calendar.SECOND, 0);
+        calendar1.set(Calendar.MILLISECOND, 0);
+
         nextTimeDay = calendar1.getTimeInMillis();
         JsonObject request = new JsonObject();
         request.addProperty("type", GlobalVars.typeChart);
@@ -196,6 +204,8 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
         } else {
             System.out.println("dataList is empty or null.");
         }
+
+        // Customize the series appearance
         series.setDrawDataPoints(true);
         series.setColor(Color.RED);
         series.setDataPointsRadius(10f);
@@ -209,6 +219,7 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
                 Toast.makeText(requireContext(), "Time: " + formattedDate + " / Y: " + dataPoint.getY(), Toast.LENGTH_SHORT).show();
             }
         });
+//        series.setSize(5);
         graphView.removeAllSeries();
         graphView.addSeries(series);
         graphView.setCursorMode(true);
@@ -217,7 +228,7 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
         graphView.setAnimation(animation);
 
         graphView.getGridLabelRenderer().setNumHorizontalLabels(8);
-        graphView.getGridLabelRenderer().setNumVerticalLabels(8);
+        graphView.getGridLabelRenderer().setNumVerticalLabels(10);
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setLabelFormatter(new DefaultLabelFormatter() {
             @Override
@@ -242,11 +253,16 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
             graphView.getViewport().setMaxX(maxX);
 
         }
+
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(0);
-        graphView.getViewport().setMaxY(40);
+        graphView.getViewport().setMaxY(100);
+//        graphView.getViewport().setDrawBorder(true);
         graphView.getViewport().setScalable(true);
         graphView.invalidate();
         gridLabelRenderer.setTextSize(15);
+
+
+
     }
 }

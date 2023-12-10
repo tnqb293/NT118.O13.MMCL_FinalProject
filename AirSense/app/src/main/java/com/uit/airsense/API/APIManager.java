@@ -33,6 +33,40 @@ public class APIManager {
     private static final APIClient apiClient = new APIClient();
     private static final APIInterface tokenAccess = apiClient.getTokenAccess().create(APIInterface.class);
     private static final APIInterface apiData = apiClient.getClient().create(APIInterface.class);
+    public static void getHumidityChart(JsonObject request, DataChartCallback callback)
+    {
+        Call<JsonArray> call = apiData.getChartHumidityData(request);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.isSuccessful())
+                {
+                    JsonArray data = response.body();
+                    Log.d("Retrofit", String.valueOf(data));
+                    callback.onSuccess(data);
+
+                }
+                else
+                {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        callback.onFailure(errorBody);
+                        Log.e("Retrofit", "Error response CurrentTime: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+            }
+        });
+    }
+
     public static void getTemperatureChart(JsonObject request, DataChartCallback callback)
     {
         Call<JsonArray> call = apiData.getChartTemperatureData(request);

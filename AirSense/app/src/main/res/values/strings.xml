@@ -42,4 +42,8 @@
     <string name="off">Off</string>
     <string name="hi_user">Hi, </string>
     <string name="temperature">Temperature</string>
+    <string name="celsius">°C</string>
+    <string name="percent">%</string>
+    <string name="min">Min: </string>
+    <string name="max">Max: </string>
 </resources>

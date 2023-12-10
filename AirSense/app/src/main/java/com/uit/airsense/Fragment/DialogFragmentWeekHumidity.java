@@ -41,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class DialogFragmentWeekTemperature extends DialogFragment {
+public class DialogFragmentWeekHumidity extends DialogFragment {
     AppCompatButton btTimePicker;
     long current;
     JsonArray dataChart;
@@ -79,7 +79,7 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
         String currentTime = dateFormat.format(timeDefault.getTime());
         btTimePicker.setText(currentTime);
         current = timeDefault.getTimeInMillis();
-        loadTemperatureData(current); // Gọi API ban đầu khi Fragment được khởi tạo
+        loadHumidityData(current); // Gọi API ban đầu khi Fragment được khởi tạo
 
         btTimePicker.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
@@ -116,7 +116,7 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
                                             String selectedDateTime = String.format(Locale.getDefault(), "%02d/%02d/%d %02d:%02d", selectedMonth + 1, selectedDay, selectedYear, selectedHour, selectedMinute);
                                             btTimePicker.setText(selectedDateTime);
 
-                                            loadTemperatureData(selectedTimeInMillis); // Gọi API khi người dùng chọn ngày và giờ mới
+                                            loadHumidityData(selectedTimeInMillis); // Gọi API khi người dùng chọn ngày và giờ mới
                                         }
                                     },
                                     hour,
@@ -137,9 +137,9 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
     }
 
     // Phương thức để gọi API với thời gian mới và cập nhật dữ liệu
-    private void loadTemperatureData(long time) {
+    private void loadHumidityData(long time) {
         JsonObject newRequest = requestChartHour(time);
-        APIManager.getTemperatureChart(newRequest, new DataChartCallback() {
+        APIManager.getHumidityChart(newRequest, new DataChartCallback() {
             @Override
             public void onSuccess(JsonArray data) {
                 dataChart = data;
@@ -217,7 +217,7 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
         graphView.setAnimation(animation);
 
         graphView.getGridLabelRenderer().setNumHorizontalLabels(8);
-        graphView.getGridLabelRenderer().setNumVerticalLabels(8);
+        graphView.getGridLabelRenderer().setNumVerticalLabels(10);
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setLabelFormatter(new DefaultLabelFormatter() {
             @Override
@@ -244,7 +244,7 @@ public class DialogFragmentWeekTemperature extends DialogFragment {
         }
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(0);
-        graphView.getViewport().setMaxY(40);
+        graphView.getViewport().setMaxY(100);
         graphView.getViewport().setScalable(true);
         graphView.invalidate();
         gridLabelRenderer.setTextSize(15);
