@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.uit.weatherapp.API.APIClient;
 import com.uit.weatherapp.API.APIManager;
 import com.uit.weatherapp.Interface.ListUserCallback;
 import com.uit.weatherapp.Interface.TokenCallback;
@@ -67,6 +68,7 @@ public class ResetPasswordFindUsernameFragment extends Fragment {
             APIManager.getToken(GlobalVars.usernameAdmin, GlobalVars.passwordAdmin, new TokenCallback() {
                 @Override
                 public void onSuccess(String token) {
+                    APIClient.UserToken = token;
                     JsonObject request = sendRequestListUser();
                     APIManager.listUserFn(request, new ListUserCallback() {
                         @Override

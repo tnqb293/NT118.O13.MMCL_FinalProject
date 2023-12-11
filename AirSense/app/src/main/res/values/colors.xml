@@ -6,4 +6,7 @@
     <color name="outline_color">#0E55A7</color>
     <color name="line_horizontal">#A09F9F</color>
     <color name="text_createAccount">#767474</color>
+    <color name="white_dark">#F0EFEF</color>
+    <color name="green_theme">#34E0A1</color>
+
 </resources>

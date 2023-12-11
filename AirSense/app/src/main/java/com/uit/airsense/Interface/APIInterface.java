@@ -7,6 +7,7 @@ import com.uit.airsense.Model.Map;
 import com.uit.airsense.Model.RequestPostRealmUser;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
+import com.uit.airsense.Model.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -51,4 +52,9 @@ public interface APIInterface {
     @Headers("Content-Type: application/json")
     @POST("api/master/asset/datapoint/5zI6XqkQVSfdgOrZ1MyWEf/attribute/rainfall")
     Call<JsonArray> getChartRainfallData(@Body JsonObject body);
+    @GET("api/master/user/user")
+    Call<User> getInformationUser();
+    @Headers("Content-Type: application/json")
+    @POST("api/master/user/query")
+    Call<JsonArray> listUser(@Body JsonObject body);
 }

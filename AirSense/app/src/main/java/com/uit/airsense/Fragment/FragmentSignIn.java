@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class FragmentSignIn extends Fragment {
     LinearLayout layoutSignIn;
     AppCompatButton btCreateAccount, btLogIn;
     TextInputEditText tietEmail, tietPassword;
+    TextView tvResetPassword;
     int flag;
     public FragmentSignIn(MainActivity activity)
     {
@@ -86,9 +88,13 @@ public class FragmentSignIn extends Fragment {
         btLogIn = v.findViewById(R.id.btLoginSignin);
         tietPassword = v.findViewById(R.id.tietPasswordSignIn);
         tietEmail = v.findViewById(R.id.tietEmailSignIn);
+        tvResetPassword = v.findViewById(R.id.tvResetPw);
     }
     void InitEvent()
     {
+        tvResetPassword.setOnClickListener(v -> {
+            loginActivity.replaceFragment(loginActivity.fmFindUser);
+        });
         btLogIn.setOnClickListener(v -> {
             String email = String.valueOf(tietEmail.getText());
             String password = String.valueOf(tietPassword.getText());
@@ -107,6 +113,7 @@ public class FragmentSignIn extends Fragment {
                         loginActivity.runOnUiThread(() -> {
                             Toast.makeText(loginActivity, "Login Successful", Toast.LENGTH_SHORT).show();
                         });
+
                         startActivity(new Intent(loginActivity, HomeActivity.class));
                     }
 
@@ -131,19 +138,15 @@ public class FragmentSignIn extends Fragment {
                 Animation animation = AnimationUtils.loadAnimation(loginActivity.getApplicationContext(), R.anim.slide_out_left);
                 animation.setStartOffset(delayPerItem * (childCount - i - 1)); // Đảo ngược thứ tự delay
 
-                // Sử dụng Listener để kiểm tra khi animation hoàn thành
                 animation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
-                        // Không cần làm gì khi animation bắt đầu
                     }
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        child.setVisibility(View.INVISIBLE); // Ẩn item sau khi animation kết thúc
+                        child.setVisibility(View.INVISIBLE);
                         completedAnimations[0]++;
-
-                        // Kiểm tra nếu tất cả animation đã hoàn thành trước khi chuyển Fragment
                         if (completedAnimations[0] == childCount) {
                             loginActivity.replaceFragment(loginActivity.fmSignUp); // Thay thế Fragment khi tất cả các animation đã ẩn
                         }

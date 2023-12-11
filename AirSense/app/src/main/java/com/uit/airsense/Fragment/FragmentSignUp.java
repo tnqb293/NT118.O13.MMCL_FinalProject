@@ -103,6 +103,10 @@ public class FragmentSignUp extends Fragment {
             {
                 Toast.makeText(loginActivity, "Email or Password is Empty", Toast.LENGTH_SHORT).show();
             }
+            else if(!password.equals(confirmPw))
+            {
+                Toast.makeText(loginActivity, "Password not match", Toast.LENGTH_SHORT).show();
+            }
             else
             {
                 APIManager.getToken(GlobalVars.usernameAdmin, GlobalVars.passwordAdmin, new TokenCallback() {
@@ -122,7 +126,7 @@ public class FragmentSignUp extends Fragment {
                                 APIManager.setRealmRoles(bodyRealmRoles, uid);
                                 APIManager.resetPassword(bodyUpdatePassword, uid);
                                 loginActivity.runOnUiThread(() -> {
-                                    Toast.makeText(loginActivity, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(loginActivity, "Create Account Success", Toast.LENGTH_SHORT).show();
                                 });
                                 animationToLogin();
                             }

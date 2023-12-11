@@ -50,6 +50,17 @@
     <string name="mm">mm</string>
     <string name="setting" translatable="false">Settings</string>
     <string name="account_infor" translatable="false">Account Information</string>
-    <string name="email_address" translatable="false">Email address</string>
+    <string name="email_address" translatable="false">Email</string>
     <string name="start">GET STARTED</string>
+    <string name="uid" translatable="false">Uid</string>
+    <string name="create_on" translatable="false">Create on</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="username_or_email" translatable="false">Username or Email</string>
+    <string name="find" translatable="false">Find</string>
+    <string name="returnBtn" translatable="false">Return</string>
+    <string name="newPw" translatable="false">New Password</string>
+    <string name="confirmNewPw" translatable="false">Confirm New Password</string>
+    <string name="resetPw" translatable="false">Confirm</string>
+    <string name="logout" translatable="false">Log out</string>
 </resources>

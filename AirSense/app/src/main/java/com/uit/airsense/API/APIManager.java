@@ -8,6 +8,8 @@ import com.uit.airsense.Interface.APIInterface;
 import com.uit.airsense.Interface.DataChartCallback;
 import com.uit.airsense.Interface.DataLightCallback;
 import com.uit.airsense.Interface.DataTemperatureCallback;
+import com.uit.airsense.Interface.DataUserCallback;
+import com.uit.airsense.Interface.ListUserCallback;
 import com.uit.airsense.Interface.TokenCallback;
 import com.uit.airsense.Interface.UidCallback;
 import com.uit.airsense.Model.ApiDataBoolean;
@@ -22,6 +24,7 @@ import com.uit.airsense.Model.ApiDataInt;
 import com.uit.airsense.Model.ApiDataString;
 import com.uit.airsense.Model.Token;
 import com.uit.airsense.Model.UidUser;
+import com.uit.airsense.Model.User;
 
 import java.io.IOException;
 
@@ -33,6 +36,69 @@ public class APIManager {
     private static final APIClient apiClient = new APIClient();
     private static final APIInterface tokenAccess = apiClient.getTokenAccess().create(APIInterface.class);
     private static final APIInterface apiData = apiClient.getClient().create(APIInterface.class);
+    public static void listUserFn(JsonObject request, ListUserCallback callback)
+    {
+        Call<JsonArray> call = apiData.listUser(request);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.isSuccessful())
+                {
+                    JsonArray data = response.body();
+                    callback.onSuccess(data);
+                    Log.d("Retrofit", "Call List User Success " + data);
+                }
+                else {
+                    // Handle unsuccessful response
+                    try {
+                        String errorBody = response.errorBody().string();
+                        Log.e("Retrofit", "Error response1: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+
+            }
+        });
+    }
+    public static void getInfoUser(DataUserCallback callback)
+    {
+        Call<User> call = apiData.getInformationUser();
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful())
+                {
+                    User data = response.body();
+                    callback.onSuccess(data.id, data.username, data.email, data.createOn);
+                }
+                else
+                {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        callback.onFailure(errorBody);
+                        Log.e("Retrofit", "Error response CurrentTime: " + errorBody);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("Retrofit", "Network error: " + t.getMessage());
+            }
+        });
+    }
     public static void getRainfallChart(JsonObject request, DataChartCallback callback)
     {
         Call<JsonArray> call = apiData.getChartRainfallData(request);
