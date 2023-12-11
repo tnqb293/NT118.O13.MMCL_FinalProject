@@ -12,4 +12,5 @@ public class GlobalVars {
     public static String typeChart = "lttb";
     public static int amountOfPointsChart = 100;
     public static long currentTime;
+    public static String day = "";
 }
