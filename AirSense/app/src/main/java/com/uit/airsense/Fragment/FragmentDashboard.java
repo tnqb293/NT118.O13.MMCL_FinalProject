@@ -20,6 +20,7 @@ import com.uit.airsense.API.APIManager;
 import com.uit.airsense.HomeActivity;
 import com.uit.airsense.Interface.DataChartCallback;
 import com.uit.airsense.Interface.DataTemperatureCallback;
+import com.uit.airsense.Interface.DataUserCallback;
 import com.uit.airsense.Model.GlobalVars;
 import com.uit.airsense.R;
 
@@ -34,6 +35,7 @@ public class FragmentDashboard extends Fragment {
     TextView tvMainTemp, tvMinTemp, tvMaxTemp, tvItemTemp;
     TextView tvMainHumidity, tvMinHumidity, tvMaxHumidity, tvItemHumidity;
     TextView tvMainWind, tvMinWind, tvMaxWind, tvItemWind;
+    TextView tvHelloUser;
     TextView tvMainRainfall, tvMinRainfall, tvMaxRainfall, tvItemRainfall;
     long previousTimeDay, nextTimeDay;
     JsonArray dataApi;
@@ -79,6 +81,7 @@ public class FragmentDashboard extends Fragment {
     }
     public void InitViews(View view)
     {
+        tvHelloUser = view.findViewById(R.id.tvHiUsername);
         // Temp
         ivTemperature = view.findViewById(R.id.ivTemperature);
         tvMainTemp = view.findViewById(R.id.tvMainTemperature);
@@ -107,6 +110,17 @@ public class FragmentDashboard extends Fragment {
     }
     public void InitEvent()
     {
+        APIManager.getInfoUser(new DataUserCallback() {
+            @Override
+            public void onSuccess(String id, String username, String email, long createOn) {
+                tvHelloUser.setText(username);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+
+            }
+        });
         ivTemperature.setOnClickListener(v -> {
             showDialogBarTemperature();
         });

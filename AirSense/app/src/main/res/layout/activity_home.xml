@@ -9,7 +9,7 @@
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2b2b2b"
+        android:background="@color/hint_color"
         app:abb_indicatorAppearance="round"
         app:abb_indicatorHeight="3dp"
         app:abb_indicatorMargin="16dp"
@@ -19,6 +19,8 @@
         app:abb_textStyle="bold"
         app:abb_textSize="16sp"
         app:abb_animationDuration="240"
+        app:abb_tabColor="@color/white"
+        app:abb_tabColorSelected="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
