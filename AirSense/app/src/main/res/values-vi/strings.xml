@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AirSense</string>
+    <string name="sign_up">ĐĂNG KÝ</string>
+    <string name="sign_in">ĐĂNG NHẬP</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="reset_password"><u>Quên mật khẩu?</u></string>
+    <string name="log_in">ĐĂNG NHẬP</string>
+    <string name="or">HOẶC</string>
+    <string name="create_account">TẠO TÀI KHOẢN</string>
+    <string name="user_name">Tên người dùng</string>
+    <string name="confirm_password">Nhập lại mật khẩu</string>
+    <string name="map">Bản đồ</string>
+    <string name="dashboard">Trang chủ</string>
+    <string name="account">Tài khoản</string>
+    <string name="default_weather">Thời tiết mặc định</string>
+    <string name="humidity_default_weather">Độ ẩm (%)</string>
+    <string name="manufacturer_default_weather">Manufacturer</string>
+    <string name="place_default_weather">Địa điểm</string>
+    <string name="rainfall_default_weather">Lượng mưa (mm)</string>
+    <string name="sun_alti_default_weather">Độ cao mặt trời</string>
+    <string name="sun_azi_default_weather">Hướng mặt trời</string>
+    <string name="sun_irr_default_weather">Bức xạ mặt trời</string>
+    <string name="sun_zenith_default_weather">Góc chói mặt trời</string>
+    <string name="tags_default_weather">Thẻ</string>
+    <string name="temperature_default_weather">Nhiệt độ (°C)</string>
+    <string name="uv_index_default_weather">Chỉ số UV</string>
+    <string name="wind_direction_default_weather">Hướng gió</string>
+    <string name="wind_speed_default_weather">Tốc độ gió (km/h)</string>
+    <string name="nan_value_default_weather">-</string>
+    <string name="humidity_value_default_weather">89</string>
+    <string name="margin_top_value_default_weather">10dp</string>
+    <string name="text_size_value_default_weather">16sp</string>
+    <string name="light_default_light">Ánh sáng</string>
+    <string name="brightness_default_light">Độ sáng (%)</string>
+    <string name="colour_RGB_default_light">Màu RGB</string>
+    <string name="colour_temperature_default_light">Nhiệt độ (K)</string>
+    <string name="email_default_light">Email</string>
+    <string name="on_off_default_light">Bật tắt</string>
+    <string name="tags_default_light">Thẻ</string>
+    <string name="on">Bật</string>
+    <string name="off">Tắt</string>
+    <string name="hi_user">Chào, </string>
+    <string name="temperature">Nhiệt độ</string>
+    <string name="celsius" translatable="false">°C</string>
+    <string name="percent" translatable="false">%</string>
+    <string name="min" translatable="false">Min: </string>
+    <string name="max" translatable="false">Max: </string>
+    <string name="km_h" translatable="false">km/h</string>
+    <string name="mm" translatable="false">mm</string>
+    <string name="start">BẮT ĐẦU</string>
+</resources>
