@@ -48,4 +48,7 @@
     <string name="max">Max: </string>
     <string name="km_h">km/h</string>
     <string name="mm">mm</string>
+    <string name="setting">Settings</string>
+    <string name="account_infor">Account Information</string>
+    <string name="email_address">Email address</string>
 </resources>
