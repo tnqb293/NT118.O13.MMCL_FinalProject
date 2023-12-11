@@ -50,4 +50,18 @@
     <string name="km_h" translatable="false">km/h</string>
     <string name="mm" translatable="false">mm</string>
     <string name="start">BẮT ĐẦU</string>
+    <string name="setting" >Settings</string>
+    <string name="account_infor" >Account Information</string>
+    <string name="email_address" >Email</string>
+    <string name="uid" >Uid</string>
+    <string name="create_on" >Ngày tạo tài khoản</string>
+    <string name="username" >Tên người dùng</string>
+    <string name="cancel" >Hủy bỏ</string>
+    <string name="username_or_email" >Tên đăng nhập hoặc email</string>
+    <string name="find" >Tìm</string>
+    <string name="returnBtn" >Trở về</string>
+    <string name="newPw" >Nhập mật khẩu mới</string>
+    <string name="confirmNewPw" >Xác nhận mật khẩu mới</string>
+    <string name="resetPw" >Xác nhận</string>
+    <string name="logout" >Đăng xuất</string>
 </resources>
