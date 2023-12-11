@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_hour"
-        android:icon="@drawable/ic_map"
-        android:title="Hour"
+        android:icon="@drawable/gio"
+        android:title="@string/hours"
         />
     <item
         android:id="@+id/nav_day"
-        android:icon="@drawable/ic_dashboard"
-        android:title="Day"
+        android:icon="@drawable/day"
+        android:title="@string/day"
         />
     <item
         android:id="@+id/nav_week"
-        android:icon="@drawable/ic_account"
-        android:title="Week"
+        android:icon="@drawable/week"
+        android:title="@string/week"
         />
     <item
         android:id="@+id/nav_month"
-        android:icon="@drawable/ic_weather"
-        android:title="Month"
+        android:icon="@drawable/month"
+        android:title="@string/month"
         />
 </menu>

@@ -64,4 +64,8 @@
     <string name="confirmNewPw" >Xác nhận mật khẩu mới</string>
     <string name="resetPw" >Xác nhận</string>
     <string name="logout" >Đăng xuất</string>
+    <string name="hours" >Giờ</string>
+    <string name="day" >Ngày</string>
+    <string name="month" >Tháng</string>
+    <string name="week" >Tuần</string>
 </resources>
