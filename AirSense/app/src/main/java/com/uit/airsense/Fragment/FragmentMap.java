@@ -33,6 +33,8 @@ import com.mapbox.maps.plugin.annotation.AnnotationType;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 
+import com.mapbox.maps.plugin.logo.LogoPlugin;
+import com.mapbox.maps.plugin.scalebar.ScaleBarPlugin;
 import com.uit.airsense.API.APIManager;
 import com.uit.airsense.HomeActivity;
 import com.uit.airsense.Interface.DataLightCallback;
@@ -102,7 +104,13 @@ public class FragmentMap extends Fragment {
         Point point1 = Point.fromLngLat(106.80345028525176, 10.869905172970164);
         mapData = Map.getMapObj();
         mapboxMap = mapView.getMapboxMap();
-
+        ScaleBarPlugin scaleBarPlugin = mapView.getPlugin(Plugin.MAPBOX_SCALEBAR_PLUGIN_ID);
+        assert scaleBarPlugin != null;
+        scaleBarPlugin.setEnabled(false);
+//
+        LogoPlugin logoPlugin = mapView.getPlugin(Plugin.MAPBOX_LOGO_PLUGIN_ID);
+        assert logoPlugin != null;
+        logoPlugin.setEnabled(false);
         if (mapboxMap != null) {
             mapboxMap.loadStyleJson(Objects.requireNonNull(new Gson().toJson(mapData)), style -> {
                 style.removeStyleLayer("poi-level-1");
